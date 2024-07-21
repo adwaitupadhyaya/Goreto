@@ -7,5 +7,3 @@ export async function getUsers(req: Request, res: Response) {
   const allUsers = await userServices.getUsers();
   return res.status(HttpStatusCodes.OK).json(allUsers);
 }
-
-export function createUser(req: Request, res: Response, next: NextFunction) {}
