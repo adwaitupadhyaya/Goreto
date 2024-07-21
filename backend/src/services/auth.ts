@@ -6,6 +6,12 @@ import { sign } from "jsonwebtoken";
 import config from "../config";
 
 export async function signup(body: IUser) {
+  const existingUser = await userServices.getUserByUsername(body.username);
+  if (existingUser) {
+    return {
+      error: `Username ${body.username} is already taken`,
+    };
+  }
   const password = await bcrypt.hash(body.password, 10);
   const newUser = {
     ...body,

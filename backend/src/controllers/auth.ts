@@ -4,10 +4,10 @@ import HttpStatusCodes from "http-status-codes";
 
 export async function signup(req: Request, res: Response) {
   const { body } = req;
-  const createdUser = await AuthServices.signup(body);
+  const data = await AuthServices.signup(body);
   res.status(HttpStatusCodes.CREATED).json({
     message: "User Created Succesfully",
-    user: createdUser,
+    user: data,
   });
 }
 
