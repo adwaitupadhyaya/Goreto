@@ -6,4 +6,26 @@ export class UserModel extends BaseModel {
     const data = await query;
     return user;
   }
+
+  static async getUsers() {
+    const users = await this.queryBuilder()
+      .select(
+        "users.first_name",
+        "users.last_name",
+        "users.username",
+        "users.email",
+        "users.profile_picture"
+      )
+      .table("users");
+    return users;
+  }
+
+  static async getUserByUsername(username: string) {
+    const user = await this.queryBuilder()
+      .select("*")
+      .table("users")
+      .where({ "users.username": username })
+      .first();
+    return user;
+  }
 }

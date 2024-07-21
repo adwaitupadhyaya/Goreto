@@ -13,11 +13,17 @@ export async function signup(req: Request, res: Response) {
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
-  try {
-    const data = await AuthServices.login(body);
-  } catch (error) {
-    // handle error here
+  const data = await AuthServices.login(body);
+  if (!data) {
+    return res.status(HttpStatusCodes.NOT_FOUND).json({
+      error: "Invalid username or password",
+    });
   }
+
+  return res.status(HttpStatusCodes.OK).json({
+    message: "Logged in Succesfully",
+    tokens: data,
+  });
 }
 
 export function logout() {}
