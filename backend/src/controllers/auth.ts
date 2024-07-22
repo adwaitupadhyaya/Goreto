@@ -1,29 +1,32 @@
+import { BadRequestError } from "./../error/BadRequestError";
 import { NextFunction, Request, Response } from "express";
 import * as AuthServices from "../services/auth";
 import HttpStatusCodes from "http-status-codes";
 
-export async function signup(req: Request, res: Response) {
+export async function signup(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
-  const data = await AuthServices.signup(body);
-  res.status(HttpStatusCodes.CREATED).json({
-    message: "User Created Succesfully",
-    user: data,
-  });
+  try {
+    const data = await AuthServices.signup(body);
+    res.status(HttpStatusCodes.CREATED).json({
+      message: "User Created Succesfully",
+      user: data,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 export async function login(req: Request, res: Response, next: NextFunction) {
   const { body } = req;
-  const data = await AuthServices.login(body);
-  if (!data) {
-    return res.status(HttpStatusCodes.NOT_FOUND).json({
-      error: "Invalid username or password",
+  try {
+    const data = await AuthServices.login(body);
+    return res.status(HttpStatusCodes.OK).json({
+      message: "Logged in Succesfully",
+      tokens: data,
     });
+  } catch (error) {
+    next(error);
   }
-
-  return res.status(HttpStatusCodes.OK).json({
-    message: "Logged in Succesfully",
-    tokens: data,
-  });
 }
 
 export function logout() {}

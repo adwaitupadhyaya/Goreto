@@ -4,13 +4,14 @@ import bcrypt from "bcrypt";
 import * as userServices from "../services/users";
 import { sign } from "jsonwebtoken";
 import config from "../config";
+import { BadRequestError } from "../error/BadRequestError";
 
 export async function signup(body: IUser) {
   const existingUser = await userServices.getUserByUsername(body.username);
   if (existingUser) {
-    return {
-      error: `Username ${body.username} is already taken`,
-    };
+    throw new BadRequestError(
+      `Username ${existingUser.username} is already taken`
+    );
   }
   const password = await bcrypt.hash(body.password, 10);
   const newUser = {
@@ -24,13 +25,15 @@ export async function signup(body: IUser) {
 export async function login(body: Pick<IUser, "username" | "password">) {
   const user = await userServices.getUserByUsername(body.username);
   if (!user) {
-    return user;
+    throw new BadRequestError(`Username ${body.username} does not exist`);
   }
 
   const isValidPassword = await bcrypt.compare(body.password, user.password);
 
   if (!isValidPassword) {
-    return undefined;
+    if (!user) {
+      throw new BadRequestError(`Incorrect Password`);
+    }
   }
 
   const paylaod = {

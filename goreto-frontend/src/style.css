@@ -57,11 +57,11 @@
   background-color: var(--green) !important;
 }
 nav {
-  background-color: var(--light-blue);
+  background-color: var(--white);
   display: flex;
   justify-content: space-between;
-  font-size: 1rem;
-  height: 80px;
+  font-size: 1.2rem;
+  height: 75px;
   padding: 10px;
 }
 
@@ -81,6 +81,7 @@ nav {
 }
 
 .nav__right ul li a {
+  align-items: center;
   text-decoration: none;
   color: black;
 }
@@ -119,7 +120,7 @@ nav {
 }
 
 .nav__right__brand-text {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: var(--green);
 }
