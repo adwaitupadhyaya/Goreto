@@ -5,7 +5,7 @@ export const baseKnexConfig: Knex.Config = {
   client: config.database.client,
   connection: {
     host: config.database.host,
-    port: +config.database.port!,
+    port: +(config.database.port ?? 5432),
     user: config.database.user,
     password: config.database.password,
     database: config.database.name,
