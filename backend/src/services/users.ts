@@ -12,3 +12,7 @@ export async function getUsers() {
 export async function getUserByUsername(username: string) {
   return await userModel.UserModel.getUserByUsername(username);
 }
+
+export async function getUserByEmail(email: string) {
+  return await userModel.UserModel.getUserByEmail(email);
+}

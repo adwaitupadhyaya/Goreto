@@ -1,8 +1,10 @@
 import express from "express";
 import {
   createItinerary,
+  deleteItinerary,
   getItineraries,
   getItineraryById,
+  updateItinerary,
 } from "../controllers/itineraries";
 import { authenticate } from "../middlewares/auth";
 import { createItinerarySchema } from "../schema/itineraries";
@@ -19,5 +21,7 @@ router.post(
 
 router.get("/", authenticate, getItineraries);
 router.get("/:id", authenticate, getItineraryById);
+router.put("/:id", authenticate, updateItinerary);
+router.delete("/:id", authenticate, deleteItinerary);
 
 export default router;

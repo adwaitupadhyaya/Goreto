@@ -1,6 +1,6 @@
 import { NextFunction, Response } from "express";
 import { Request } from "../interfaces/auth";
-import * as itinerayServices from "../services/itineraries";
+import * as itineraryServices from "../services/itineraries";
 import HttpStatusCodes from "http-status-codes";
 
 export async function createItinerary(
@@ -11,7 +11,7 @@ export async function createItinerary(
   const { body } = req;
   const userId = req.user!.id;
   try {
-    await itinerayServices.createItinerary(body, userId);
+    await itineraryServices.createItinerary(body, userId);
 
     return res.status(HttpStatusCodes.CREATED).json({
       message: "Created Succesfully",
@@ -29,7 +29,7 @@ export async function getItineraries(
 ) {
   const { id } = req.user!;
   try {
-    const data = await itinerayServices.getItineraries(id);
+    const data = await itineraryServices.getItineraries(id);
     res.status(HttpStatusCodes.OK).json(data);
   } catch (error) {
     next(error);
@@ -44,8 +44,49 @@ export async function getItineraryById(
   const { id } = req.user!;
   const itineraryId = req.params.id;
   try {
-    const data = await itinerayServices.getItineraryById(id, itineraryId);
+    const data = await itineraryServices.getItineraryById(id, itineraryId);
     res.status(HttpStatusCodes.OK).json(data);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function updateItinerary(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { id } = req.user!;
+  const itineraryId = req.params.id;
+
+  try {
+    const data = await itineraryServices.updateItinerary(
+      id,
+      itineraryId,
+      req.body
+    );
+    res.status(HttpStatusCodes.OK).json({
+      message: "Itinerary Updated successfully",
+      updatedItinerary: data,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function deleteItinerary(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { id } = req.user!;
+  const itineraryId = req.params.id;
+
+  try {
+    await itineraryServices.deleteItinerary(id, itineraryId);
+    res.status(HttpStatusCodes.OK).json({
+      message: "Itinerary Deleted successfully",
+    });
   } catch (error) {
     next(error);
   }

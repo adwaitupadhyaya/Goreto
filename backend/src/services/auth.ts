@@ -8,9 +8,15 @@ import { BadRequestError } from "../error/BadRequestError";
 
 export async function signup(body: IUser) {
   const existingUser = await userServices.getUserByUsername(body.username);
+  const existingEmail = await userServices.getUserByEmail(body.email);
   if (existingUser) {
     throw new BadRequestError(
       `Username ${existingUser.username} is already taken`
+    );
+  }
+  if (existingEmail) {
+    throw new BadRequestError(
+      `User with email ${existingUser.email} already exists`
     );
   }
   const password = await bcrypt.hash(body.password, 10);

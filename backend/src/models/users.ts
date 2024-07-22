@@ -28,4 +28,13 @@ export class UserModel extends BaseModel {
       .first();
     return user;
   }
+
+  static async getUserByEmail(email: string) {
+    const user = await this.queryBuilder()
+      .select("*")
+      .table("users")
+      .where({ "users.email": email })
+      .first();
+    return user;
+  }
 }
