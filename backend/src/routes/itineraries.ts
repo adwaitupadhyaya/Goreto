@@ -1,5 +1,9 @@
 import express from "express";
-import { createItinerary } from "../controllers/itineraries";
+import {
+  createItinerary,
+  getItineraries,
+  getItineraryById,
+} from "../controllers/itineraries";
 import { authenticate } from "../middlewares/auth";
 import { createItinerarySchema } from "../schema/itineraries";
 import { validateReqBody } from "../middlewares/validator";
@@ -12,5 +16,8 @@ router.post(
   validateReqBody(createItinerarySchema),
   createItinerary
 );
+
+router.get("/", authenticate, getItineraries);
+router.get("/:id", authenticate, getItineraryById);
 
 export default router;

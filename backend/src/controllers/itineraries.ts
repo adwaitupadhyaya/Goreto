@@ -21,3 +21,32 @@ export async function createItinerary(
     next(error);
   }
 }
+
+export async function getItineraries(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { id } = req.user!;
+  try {
+    const data = await itinerayServices.getItineraries(id);
+    res.status(HttpStatusCodes.OK).json(data);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getItineraryById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { id } = req.user!;
+  const itineraryId = req.params.id;
+  try {
+    const data = await itinerayServices.getItineraryById(id, itineraryId);
+    res.status(HttpStatusCodes.OK).json(data);
+  } catch (error) {
+    next(error);
+  }
+}
