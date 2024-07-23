@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --white: #ffffff;
   --yellow: #efc01a;
@@ -56,10 +60,12 @@
 .btn-outline-success:hover {
   background-color: var(--green) !important;
 }
+
 nav {
   background-color: var(--white);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 1.2rem;
   height: 75px;
   padding: 10px;
