@@ -10,6 +10,85 @@
   --dark-green: #04302f;
 }
 
+@keyframes typewriter {
+  0% {
+    width: 0%;
+  }
+  50% {
+    width: 100%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes erase {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+@keyframes blinkTextCursor {
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+  100% {
+    border-color: transparent;
+  }
+}
+
+@keyframes blinkAndDisappear {
+  0% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: white;
+  }
+  90% {
+    border-color: transparent;
+  }
+  100% {
+    border-color: transparent;
+  }
+}
+
+.typewriter-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriter 2s steps(44) 1s 1 normal both,
+    blinkTextCursor 0.5s step-end infinite,
+    /* Keep the cursor blinking */ erase 2s steps(44) 4s 1 normal both; /* Add erase animation */
+}
+
+@keyframes typewriterLoop {
+  0%,
+  50% {
+    width: 0%;
+  }
+  25%,
+  75% {
+    width: 100%;
+  }
+}
+
+.looping-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typewriterLoop 8s steps(44) infinite,
+    blinkTextCursor 0.75s step-end infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 @font-face {
   font-family: "proxima_nova_rgregular";
   src: url("https://litmus.com/fonts/Emails/proximanova-regular-webfont.eot");
@@ -61,6 +140,10 @@
   background-color: var(--green) !important;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 nav {
   background-color: var(--white);
   display: flex;
@@ -69,77 +152,31 @@ nav {
   font-size: 1.2rem;
   height: 75px;
   padding: 10px;
+  position: sticky !important;
+  top: 0;
 }
 
-.nav__right {
-  width: 50%;
-  display: flex;
-  justify-content: start;
-}
-
-.nav__right ul {
-  padding: 0px;
-  display: flex;
-  list-style-type: none;
-  justify-content: space-around;
-  align-items: center;
-  gap: 20px;
-}
-
-.nav__right ul li a {
-  align-items: center;
-  text-decoration: none;
-  color: black;
-}
-
-.nav__right ul li a:hover {
-  text-decoration: underline;
-  transition: 0.5s ease-in;
-}
-
-.nav__left--btn {
-  border: none;
-  color: black;
-  border-radius: 15px;
-  padding: 10px;
-  transition: 0.2s ease-in;
-}
-
-.nav__left--btn:hover {
-  background-color: rgb(223, 223, 223);
-  transition: 0.2s ease-in;
-}
-
-.nav__right__brand {
-  display: flex;
-  align-items: center;
-}
-
-.nav__right__brand-logo {
+.image_wrapper {
   height: 100px;
   width: 100px;
 }
 
-.nav__right__brand-logo img {
-  width: 100%;
-  height: 100%;
+.brand {
+  display: flex;
+  align-items: center;
 }
-
-.nav__right__brand-text {
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: var(--green);
-}
-
 .hero {
   position: relative;
+  display: flex;
+  justify-content: center;
+  height: 80vh;
 }
 
 .hero__image {
   z-index: -1;
   position: absolute;
   width: 100vw;
-  height: 80vh;
+  height: 100%;
 }
 
 .hero__image img {
@@ -148,6 +185,8 @@ nav {
 }
 
 .hero__form {
+  display: flex;
+  justify-content: center;
   padding: 20px;
   width: 60%;
   color: var(--white);
@@ -171,4 +210,12 @@ nav {
 .form-control:focus {
   border-color: var(--green);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px;
+}
+
+input {
+  width: 100%;
+}
+
+i {
+  color: var(--green);
 }

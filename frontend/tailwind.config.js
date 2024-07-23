@@ -1,11 +1,33 @@
 /** @type {import('tailwindcss').Config} */
 
-import withMt from "@material-tailwind/html/utils/withMT";
+import withMT from "@material-tailwind/html/utils/withMT";
 
-export default withMt({
-  content: ["./index.html", "./src/**/*.html"],
+const config = {
+  content: [
+    "./index.html",
+    "./src/**/*.html",
+    "./node_modules/@material-tailwind/html/**/*.{js,ts,html}",
+  ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        typewriter:
+          "typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor 500ms steps(44) infinite normal",
+      },
+      keyframes: {
+        typewriter: {
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
+        },
+        blinkTextCursor: {
+          "0%": { "border-color": "transparent" },
+          "50%": { "border-color": "black" },
+          "100%": { "border-color": "transparent" },
+        },
+      },
+    },
   },
   plugins: [],
-});
+};
+
+export default withMT(config);
