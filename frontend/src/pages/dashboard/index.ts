@@ -13,12 +13,9 @@ const config = {
 axios
   .get("http://localhost:3000/users/me", config)
   .then((res) => {
-    console.log(res.data);
-
     userBreadcrumb.innerText = `Hello ${res.data.username}`;
   })
   .catch((err) => {
-    console.log(err.message);
     document.body.innerHTML = "Forbidden Page";
   });
 

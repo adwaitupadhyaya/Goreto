@@ -34,7 +34,6 @@ loginForm.addEventListener("submit", (event) => {
         "http://localhost:5173/src/pages/dashboard/index.html";
     })
     .catch((error) => {
-      console.log(error.response.data.message);
       displayErrors(error.response.data.message, loginErrorArea);
     });
 });
