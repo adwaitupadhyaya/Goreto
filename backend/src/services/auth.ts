@@ -35,11 +35,10 @@ export async function login(body: Pick<IUser, "username" | "password">) {
   }
 
   const isValidPassword = await bcrypt.compare(body.password, user.password);
+  console.log(isValidPassword);
 
   if (!isValidPassword) {
-    if (!user) {
-      throw new BadRequestError(`Incorrect Password`);
-    }
+    throw new BadRequestError(`Incorrect Password`);
   }
 
   const paylaod = {

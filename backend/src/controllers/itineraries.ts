@@ -27,9 +27,8 @@ export async function getItineraries(
   res: Response,
   next: NextFunction
 ) {
-  const { id } = req.user!;
   try {
-    const data = await itineraryServices.getItineraries(id);
+    const data = await itineraryServices.getItineraries();
     res.status(HttpStatusCodes.OK).json(data);
   } catch (error) {
     next(error);

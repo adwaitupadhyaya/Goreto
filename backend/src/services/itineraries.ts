@@ -9,8 +9,8 @@ export async function createItinerary(
   await ItineraryModel.ItineraryModel.create(body, id);
 }
 
-export async function getItineraries(userId: string) {
-  return await ItineraryModel.ItineraryModel.get(userId);
+export async function getItineraries() {
+  return await ItineraryModel.ItineraryModel.get();
 }
 
 export async function getItineraryById(userId: string, id: string) {

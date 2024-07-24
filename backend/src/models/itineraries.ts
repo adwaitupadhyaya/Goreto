@@ -37,24 +37,17 @@ export class ItineraryModel extends BaseModel {
     }
   }
 
-  static async get(userId: string) {
+  static async get() {
     const data = await this.queryBuilder()
+      .distinct("itineraries.title")
       .select(
-        " itineraries.title",
         "itineraries.description",
         "itineraries.number_of_days",
         "itineraries.difficulty",
-        " itinerary_locations.day",
-        "locations.location_name"
+        "photos.photo_url"
       )
       .table("itineraries")
-      .innerJoin(
-        "itinerary_locations",
-        "itineraries.id",
-        "itinerary_locations.itinerary_id"
-      )
-      .innerJoin("locations", "locations.id", "itinerary_locations.location_id")
-      .where({ "itineraries.created_by": +userId });
+      .innerJoin("photos", "photos.itinerary_id", "itineraries.id");
 
     return data;
   }
