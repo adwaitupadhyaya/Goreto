@@ -41,6 +41,7 @@ export class ItineraryModel extends BaseModel {
     const data = await this.queryBuilder()
       .distinct("itineraries.title")
       .select(
+        "itineraries.id",
         "itineraries.description",
         "itineraries.number_of_days",
         "itineraries.difficulty",
@@ -52,24 +53,26 @@ export class ItineraryModel extends BaseModel {
     return data;
   }
 
-  static async getById(userId: string, id: string) {
+  static async getById(id: string) {
     const data = await this.queryBuilder()
       .select(
-        " itineraries.title",
+        "itineraries.id",
+        "itineraries.title",
         "itineraries.description",
         "itineraries.number_of_days",
         "itineraries.difficulty",
-        " itinerary_locations.day",
-        "locations.location_name"
+        "itinerary_locations.day",
+        "locations.location_name",
+        "photos.photo_url"
       )
       .table("itineraries")
-      .innerJoin(
+      .join(
         "itinerary_locations",
         "itineraries.id",
         "itinerary_locations.itinerary_id"
       )
-      .innerJoin("locations", "locations.id", "itinerary_locations.location_id")
-      .where({ "itineraries.created_by": +userId })
+      .join("locations", "locations.id", "itinerary_locations.location_id")
+      .join("photos", "photos.itinerary_id", "itineraries.id")
       .where({ "itineraries.id": +id });
 
     return data;

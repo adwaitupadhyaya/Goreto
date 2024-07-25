@@ -40,10 +40,9 @@ export async function getItineraryById(
   res: Response,
   next: NextFunction
 ) {
-  const { id } = req.user!;
   const itineraryId = req.params.id;
   try {
-    const data = await itineraryServices.getItineraryById(id, itineraryId);
+    const data = await itineraryServices.getItineraryById(itineraryId);
     res.status(HttpStatusCodes.OK).json(data);
   } catch (error) {
     next(error);

@@ -8,7 +8,11 @@ const exploreWrapper = document.getElementById(
 axios.get("http://localhost:3000/itineraries").then((response) => {
   response.data.forEach((itinerary: IItinerary) => {
     const exploreCard = document.createElement("div");
-    exploreCard.innerHTML = `        <div
+
+    exploreCard.innerHTML = `        
+    <a href = "./src/pages/details/index.html?id=${itinerary.id}">
+
+        <div
           class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"
         >
           <div
@@ -26,18 +30,17 @@ axios.get("http://localhost:3000/itineraries").then((response) => {
               ${itinerary.title}
             </h5>
             <p
-              class="block font-sans text-base antialiased font-light leading-relaxed text-inherit"
-            >
-              ${itinerary.description}
-            </p>
-            <p
-              class="block font-sans text-sm antialiased font-light leading-relaxed text-inherit mt-2"
+              class="block font-sans text-sm antialiased font-light leading-relaxed text-inherit mt-2 capitalize"
             >
               <i class="fa-solid fa-star"></i> &nbsp; ${itinerary.numberOfDays} days &nbsp;
               <i class="fa-solid fa-circle-dot"></i>&nbsp; ${itinerary.difficulty}
             </p>
           </div>
-        </div>`;
+        </div>
+
+    </a>
+    
+`;
 
     exploreWrapper.appendChild(exploreCard);
   });

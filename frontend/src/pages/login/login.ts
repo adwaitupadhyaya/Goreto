@@ -22,6 +22,7 @@ loginForm.addEventListener("submit", (event) => {
     username: target.usernameLogin.value,
     password: target.passwordLogin.value,
   };
+
   axios
     .post("http://localhost:3000/auth/login", loginData)
     .then((response) => {

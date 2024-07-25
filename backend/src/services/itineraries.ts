@@ -13,8 +13,8 @@ export async function getItineraries() {
   return await ItineraryModel.ItineraryModel.get();
 }
 
-export async function getItineraryById(userId: string, id: string) {
-  const data = await ItineraryModel.ItineraryModel.getById(userId, id);
+export async function getItineraryById(id: string) {
+  const data = await ItineraryModel.ItineraryModel.getById(id);
 
   if (data.length === 0) {
     throw new NotFoundError(`Itinerary with id ${id} not found`);
@@ -28,10 +28,7 @@ export async function updateItinerary(
   id: string,
   body: Omit<IItinerary, "id" | "created_by">
 ) {
-  const itineraryExists = await ItineraryModel.ItineraryModel.getById(
-    userId,
-    id
-  );
+  const itineraryExists = await ItineraryModel.ItineraryModel.getById(userId);
   if (itineraryExists.length === 0) {
     throw new NotFoundError(`Itinerary with id ${id} not found`);
   }
@@ -40,10 +37,7 @@ export async function updateItinerary(
 }
 
 export async function deleteItinerary(userId: string, id: string) {
-  const itineraryExists = await ItineraryModel.ItineraryModel.getById(
-    userId,
-    id
-  );
+  const itineraryExists = await ItineraryModel.ItineraryModel.getById(id);
   if (itineraryExists.length === 0) {
     throw new NotFoundError(`Itinerary with id ${id} not found`);
   }

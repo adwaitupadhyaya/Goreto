@@ -3,11 +3,7 @@
 import withMT from "@material-tailwind/html/utils/withMT";
 
 const config = {
-  content: [
-    "./index.html",
-    "./src/**/*.html",
-    "./node_modules/@material-tailwind/html/**/*.{js,ts,html}",
-  ],
+  content: ["./index.html", "./src/**/*.{ts,html}"],
   theme: {
     extend: {
       animation: {

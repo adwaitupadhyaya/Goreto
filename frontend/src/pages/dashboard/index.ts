@@ -16,7 +16,7 @@ axios
     userBreadcrumb.innerText = `Hello ${res.data.username}`;
   })
   .catch((err) => {
-    document.body.innerHTML = "Forbidden Page";
+    document.body.innerHTML = `${err.response.data.error}`;
   });
 
 logoutBtn.addEventListener("click", () => {

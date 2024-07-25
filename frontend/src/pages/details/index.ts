@@ -1,0 +1,70 @@
+import axios from "axios";
+
+const searchParams = new URLSearchParams(window.location.search);
+const loader = document.querySelector(".loader") as HTMLDivElement;
+const detailsContainer = document.querySelector(".details__container");
+
+setTimeout(() => {
+  loader.style.display = "none";
+}, 1000);
+
+const id = searchParams.toString().split("=")[1];
+
+axios
+  .get(`http://localhost:3000/itineraries/${id}`)
+  .then((res) => {
+    const itineraryInfo = res.data;
+    console.log(itineraryInfo[0]);
+    const itineraryDetails = document.createElement("div");
+    itineraryDetails.style.display = "flex";
+    itineraryDetails.style.flexDirection = "column";
+    itineraryDetails.style.justifyContent = "center";
+    itineraryDetails.style.alignItems = "center";
+    itineraryDetails.style.width = "90%";
+    itineraryDetails.innerHTML = `      <div class="itinerary_image flex flex-col items-center relative w-8/12">
+        <img
+          class="w-full rounded-md h-[400px] object-cover"
+          src="${itineraryInfo[0].photoUrl}"
+          alt=""
+        />
+        <h1
+          class="absolute text-3xl text-white font-extrabold top-1/2 left-1/2 translate-x-[-50%]"
+        >
+          ${itineraryInfo[0].title}
+        </h1>
+      </div>
+      <div class="itinerary_details w-8/12 bg-white p-10">
+        <div class="facts flex gap-10">
+          <p class="capitalize">
+            <span class="font-extrabold">
+              <i class="fa-solid fa-triangle-exclamation text-[#075755]"></i>
+              &nbsp; Difficulty:</span
+            >
+            ${itineraryInfo[0].difficulty}
+          </p>
+          <p>
+            <span class="font-extrabold">
+              <i class="fa-solid fa-clock text-[#075755]"></i> &nbsp;
+              Days:</span
+            >
+            ${itineraryInfo[0].numberOfDays}
+          </p>
+          <p>
+            <span class="font-extrabold">
+              <i class="fa-solid fa-star text-[#075755]"></i> &nbsp;
+              Rating:</span
+            >
+            4.5
+          </p>
+        </div>
+        <p class="font-bold text-xl mt-8 ">Description</p>
+        <p class="text-gray-700 text-justify">
+          ${itineraryInfo[0].description}
+        </p>
+      </div>`;
+
+    detailsContainer?.appendChild(itineraryDetails);
+  })
+  .catch((err) => {
+    console.log(err);
+  });

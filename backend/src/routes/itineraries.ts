@@ -22,7 +22,7 @@ router.post(
 );
 
 router.get("/", getItineraries);
-router.get("/:id", authenticate, getItineraryById);
+router.get("/:id", getItineraryById);
 router.put("/:id", authenticate, updateItinerary);
 router.delete("/:id", authenticate, deleteItinerary);
 

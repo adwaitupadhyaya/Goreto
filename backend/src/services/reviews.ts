@@ -9,7 +9,6 @@ export async function createReview(
   itineraryId: string
 ) {
   const existingItinerary = await itineraryServices.getItineraryById(
-    userId,
     itineraryId
   );
 
@@ -26,10 +25,7 @@ export async function createReview(
 }
 
 export async function getReviews(id: string, userId: string) {
-  const existingItinerary = await itineraryServices.getItineraryById(
-    userId,
-    id
-  );
+  const existingItinerary = await itineraryServices.getItineraryById(userId);
 
   if (!existingItinerary) {
     throw new NotFoundError(`Itinerary with id ${id} does not exist`);
