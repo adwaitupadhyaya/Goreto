@@ -1,11 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 
-import withMT from "@material-tailwind/html/utils/withMT";
-
-const config = {
+const withMt = require("@material-tailwind/html/utils/withMT");
+module.exports = withMt({
   content: ["./index.html", "./src/**/*.{ts,html}"],
   theme: {
     extend: {
+      colors: {
+        primary: "#075755",
+      },
       animation: {
         typewriter:
           "typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor 500ms steps(44) infinite normal",
@@ -24,6 +26,4 @@ const config = {
     },
   },
   plugins: [],
-};
-
-export default withMT(config);
+});

@@ -1,0 +1,25 @@
+.list ul li a {
+  text-decoration: none;
+}
+
+nav {
+  background-color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2rem;
+  height: 75px;
+  padding: 10px;
+  position: sticky !important;
+  top: 0;
+}
+
+.image_wrapper {
+  height: 100px;
+  width: 100px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
