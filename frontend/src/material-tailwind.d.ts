@@ -5,3 +5,9 @@ declare module "@material-tailwind/html" {
     function init(el: HTMLElement): void;
   }
 }
+
+declare module "@material-tailwind/html" {
+  export namespace Modal {
+    function init(el: HTMLElement): void;
+  }
+}

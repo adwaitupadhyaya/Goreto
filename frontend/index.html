@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -23,14 +23,14 @@
     <!-- <link rel="stylesheet" href="./src/reset.css" /> -->
     <title>Goreto</title>
   </head>
-  <body class="flex-col align-content-center">
+  <body class="align-content-center flex-col">
     <!-- Navigation Bar -->
     <section class="header">
       <nav
-        class="sticky top-0 w-full px-4 py-2 mx-auto text-white bg-white border shadow-md rounded-xl border-white/80 bg-opacity-80 backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4"
+        class="sticky top-0 mx-auto w-full rounded-xl border border-white/80 bg-white bg-opacity-80 px-4 py-2 text-white shadow-md backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4"
       >
         <div
-          class="container flex items-center justify-between mx-auto text-blue-gray-900"
+          class="container mx-auto flex items-center justify-between text-blue-gray-900"
         >
           <div class="brand">
             <div class="image_wrapper">
@@ -38,31 +38,31 @@
             </div>
             <a
               href="#"
-              class="text-[#075755] font-extrabold mr-4 block cursor-pointer py-1.5 leading-relaxed text-2xl antialiased"
+              class="mr-4 block cursor-pointer py-1.5 text-2xl font-extrabold leading-relaxed text-[#075755] antialiased"
             >
               Goreto
             </a>
           </div>
-          <div class="hidden lg:block list">
+          <div class="list hidden lg:block">
             <ul
-              class="flex flex-col gap-2 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6"
+              class="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6"
             >
               <li
-                class="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900"
+                class="flex items-center gap-x-2 p-1 font-sans text-sm font-medium leading-normal text-blue-gray-900 antialiased"
               >
                 <a href="#home" class="flex items-center"
                   ><i class="fa-solid fa-house"></i> &nbsp; Home
                 </a>
               </li>
               <li
-                class="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900"
+                class="flex items-center gap-x-2 p-1 font-sans text-sm font-medium leading-normal text-blue-gray-900 antialiased"
               >
                 <a href="#explore" class="flex items-center"
                   ><i class="fa-solid fa-compass"></i> &nbsp; Explore
                 </a>
               </li>
               <li
-                class="flex items-center p-1 font-sans text-sm antialiased font-medium leading-normal gap-x-2 text-blue-gray-900"
+                class="flex items-center gap-x-2 p-1 font-sans text-sm font-medium leading-normal text-blue-gray-900 antialiased"
               >
                 <a href="#" class="flex items-center"
                   ><i class="fa-solid fa-address-book"></i>
@@ -73,14 +73,14 @@
           </div>
           <div class="flex items-center gap-x-1">
             <a
-              class="hidden px-4 py-2 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
+              class="hidden select-none rounded-lg px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
               type="button"
               href="./src/pages/login/login.html"
             >
               <span>Log In</span>
             </a>
             <a
-              class="cursor-pointer hidden select-none rounded-lg bg-[#075755] py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
+              class="hidden cursor-pointer select-none rounded-lg bg-[#075755] px-4 py-2 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block"
               type="button"
               data-ripple-light="true"
               href="./src/pages/login/login.html"
@@ -93,11 +93,11 @@
             type="button"
           >
             <span
-              class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-6 h-6"
+                class="h-6 w-6"
                 fill="none"
                 stroke="currentColor"
                 stroke-width="2"
@@ -123,7 +123,7 @@
       <div class="hero__form">
         <form>
           <h1 class="typewriter-text looping-text">Find Your Outside!</h1>
-          <div class="mb-3 input">
+          <div class="input mb-3">
             <input
               type="text"
               class="form-control search-input"
@@ -139,23 +139,26 @@
 
     <!-- Explore Section -->
     <section class="explore mt-10 flex-col justify-center" id="explore">
-      <h1 class="text-4xl font-extrabold text-center">Explore</h1>
+      <h1 class="text-center text-4xl font-extrabold">Explore</h1>
 
-      <div id="explore__wrapper" class="flex gap-10 justify-center p-6"></div>
+      <div
+        id="explore__wrapper"
+        class="flex flex-wrap justify-center gap-10 p-6"
+      ></div>
     </section>
     <!-- Explore Section -->
 
     <!-- Footer Section-->
-    <footer class="w-full p-8 bg-[#075755]">
+    <footer class="w-full bg-[#075755] p-8">
       <div
-        class="flex flex-row flex-wrap items-center justify-center text-center bg-[#075755] gap-y-6 gap-x-12 md:justify-between"
+        class="flex flex-row flex-wrap items-center justify-center gap-x-12 gap-y-6 bg-[#075755] text-center md:justify-between"
       >
         <img src="./public/images/logo_light.png" alt="logo-ct" class="w-44" />
-        <ul class="flex flex-wrap items-center gap-y-2 gap-x-8">
+        <ul class="flex flex-wrap items-center gap-x-8 gap-y-2">
           <li>
             <a
               href="#"
-              class="block font-sans text-base antialiased font-normal leading-relaxed transition-colors text-white hover:text-[#badbd8]"
+              class="block font-sans text-base font-normal leading-relaxed text-white antialiased transition-colors hover:text-[#badbd8]"
             >
               About Us
             </a>
@@ -163,7 +166,7 @@
           <li>
             <a
               href="#"
-              class="block font-sans text-base antialiased font-normal leading-relaxed transition-colors text-white hover:text-[#badbd8]"
+              class="block font-sans text-base font-normal leading-relaxed text-white antialiased transition-colors hover:text-[#badbd8]"
             >
               Contribute
             </a>
@@ -171,16 +174,16 @@
           <li>
             <a
               href="#"
-              class="block font-sans text-base antialiased font-normal leading-relaxed transition-colors text-white hover:text-[#badbd8]"
+              class="block font-sans text-base font-normal leading-relaxed text-white antialiased transition-colors hover:text-[#badbd8]"
             >
               Contact Us
             </a>
           </li>
         </ul>
       </div>
-      <span class="block my-8 border-t border-blue-gray-50" />
+      <span class="my-8 block border-t border-blue-gray-50" />
       <p
-        class="block font-sans text-base antialiased font-normal leading-relaxed text-center text-white"
+        class="block text-center font-sans text-base font-normal leading-relaxed text-white antialiased"
       >
         © 2024 Adwait Upadhyaya
       </p>
