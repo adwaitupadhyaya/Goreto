@@ -7,7 +7,6 @@ const exploreWrapper = document.getElementById(
 ) as HTMLDivElement;
 
 axios.get("http://localhost:3000/itineraries").then((response) => {
-  console.log(response.data.length);
   response.data.forEach((itinerary: IItinerary) => {
     const exploreCard = document.createElement("div");
 
@@ -43,7 +42,6 @@ axios.get("http://localhost:3000/itineraries").then((response) => {
     </a>
     
 `;
-
     exploreWrapper.appendChild(exploreCard);
   });
 });

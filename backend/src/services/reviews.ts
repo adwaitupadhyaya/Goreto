@@ -24,8 +24,8 @@ export async function createReview(
   return await ReviewModel.ReviewModel.create(review_obj);
 }
 
-export async function getReviews(id: string, userId: string) {
-  const existingItinerary = await itineraryServices.getItineraryById(userId);
+export async function getReviews(id: string) {
+  const existingItinerary = await itineraryServices.getItineraryById(id);
 
   if (!existingItinerary) {
     throw new NotFoundError(`Itinerary with id ${id} does not exist`);

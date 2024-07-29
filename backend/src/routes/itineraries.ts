@@ -34,6 +34,6 @@ router.post(
   createReview
 );
 
-router.get("/:id/reviews", authenticate, getReviews);
+router.get("/:id/reviews", getReviews);
 
 export default router;

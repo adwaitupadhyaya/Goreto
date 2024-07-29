@@ -29,10 +29,9 @@ export async function getReviews(
   res: Response,
   next: NextFunction
 ) {
-  const userId = req.user!.id;
   const { id } = req.params;
   try {
-    const data = await reviewServices.getReviews(id, userId);
+    const data = await reviewServices.getReviews(id);
     res.status(HttpStatusCodes.OK).send(data);
   } catch (error) {
     next(error);

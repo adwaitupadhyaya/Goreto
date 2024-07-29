@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Accordion } from "../../utils/accordion";
+import axiosInstance from "../../axios";
+import { IReview } from "../../interface/review";
 // import { Accordion } from "../../utils/accordion";
 const searchParams = new URLSearchParams(window.location.search);
 const loader = document.querySelector(".loader") as HTMLDivElement;
@@ -33,7 +35,7 @@ axios
           ${itineraryInfo[0].title}
         </h1>
       </div>
-      <div class="itinerary_details w-8/12 bg-white p-10">
+      <div class="itinerary_details w-8/12 bg-white p-5">
         <div class="facts flex gap-10">
           <p class="capitalize">
             <span class="font-extrabold">
@@ -98,3 +100,12 @@ axios
   .catch((err) => {
     console.log(err);
   });
+
+try {
+  const response = await axiosInstance.get(`/itineraries/${id}/reviews`);
+  response.data.forEach((element: IReview) => {
+    console.log(element);
+  });
+} catch (error) {
+  console.log(error);
+}

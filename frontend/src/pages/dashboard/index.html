@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="./reset.css" />
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body class="flex overflow-hidden">
+  <body class="flex overflow-x-hidden">
     <!-- sidebar -->
     <div
-      class="sticky flex h-full max-w-[17rem] flex-col bg-[#075755] bg-clip-border p-4 text-white shadow-xl shadow-blue-gray-900/5"
+      class="fixed flex h-full max-w-[17rem] flex-col bg-[#075755] bg-clip-border p-4 text-white shadow-xl shadow-blue-gray-900/5"
     >
       <div class="h-52 w-52 p-4">
         <img
@@ -82,20 +82,18 @@
     <!-- sidebar -->
 
     <!-- left section -->
-    <div class="right__content mt-0 flex-1 flex-col justify-start">
+    <div class="right__content ml-[17rem] flex flex-col justify-start">
       <!-- navbar -->
-      <div
-        class="sticky top-0 grid min-h-[140px] w-full place-items-center rounded-lg p-6 lg:overflow-visible"
-      >
-        <div class="-m-6 max-h-[768px] w-[calc(100%+48px)]">
+      <div class="sticky top-0 z-10 grid w-full rounded-lg lg:overflow-visible">
+        <div class="max-h-[100vh] w-[calc(100%+48px)]">
           <nav
-            class="sticky top-0 z-10 block h-max w-full max-w-full rounded-none border border-white/80 bg-white bg-opacity-80 px-4 py-2 text-black shadow-md backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4"
+            class="block h-max w-full max-w-full rounded-none border border-white/80 bg-white bg-opacity-80 text-black shadow-md backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4"
           >
             <div class="flex items-center justify-between text-blue-gray-900">
               <div class="flex items-center gap-4">
                 <div class="mr-4 hidden lg:block"></div>
                 <div
-                  class="flex items-center gap-x-1"
+                  class="flex items-center gap-x-1 font-bold"
                   id="userBreadcrumb"
                 ></div>
               </div>
@@ -104,6 +102,14 @@
         </div>
       </div>
       <!-- navbar -->
+
+      <!-- itineraries container -->
+      <h3 class="p-3 text-xl">All itineraries</h3>
+      <div
+        id="itineraries__container"
+        class="flex flex-wrap justify-center"
+      ></div>
+      <!-- itineraries container -->
     </div>
     <!-- left section -->
 

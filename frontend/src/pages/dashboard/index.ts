@@ -1,6 +1,7 @@
 import axios from "axios";
 import axiosInstance from "../../axios";
 import Toastify from "toastify-js";
+import { IItinerary } from "../../interface/itinerary";
 const userBreadcrumb = document.getElementById(
   "userBreadcrumb",
 ) as HTMLDivElement;
@@ -12,6 +13,9 @@ const addLocationButton = document.getElementById(
   "addLocation",
 ) as HTMLButtonElement;
 const createForm = document.getElementById("createForm") as HTMLFormElement;
+const itinerariesContainer = document.getElementById(
+  "itineraries__container",
+) as HTMLDivElement;
 
 const accessToken = localStorage.getItem("accessToken");
 const config = {
@@ -120,3 +124,51 @@ createForm.addEventListener("submit", async (e) => {
     console.log(error);
   }
 });
+
+try {
+  const response = await axiosInstance.get("/itineraries");
+  console.log(response.data);
+  let exploreCard = document.createElement("div");
+  exploreCard.style.width = "100%";
+  exploreCard.style.display = "flex";
+  exploreCard.style.flexWrap = "wrap";
+  exploreCard.innerHTML = ``;
+
+  response.data.forEach((itinerary: IItinerary) => {
+    exploreCard.innerHTML += `        
+    <a href = "http://localhost:5173/src/pages/details/index.html?id=${itinerary.id}">
+
+        <div
+          class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"
+        >
+          <div
+            class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40"
+          >
+            <img
+              src="${itinerary.photoUrl}"
+              class="transition-transform duration-300 ease-in-out transform hover:scale-105"
+            />
+          </div>
+          <div class="p-6">
+            <h5
+              class="block mb-2 font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900"
+            >
+              ${itinerary.title}
+            </h5>
+            <p
+              class="block font-sans text-sm antialiased font-light leading-relaxed text-inherit mt-2 capitalize"
+            >
+              <i class="fa-solid fa-star"></i> &nbsp; ${itinerary.numberOfDays} days &nbsp;
+              <i class="fa-solid fa-circle-dot"></i>&nbsp; ${itinerary.difficulty}
+            </p>
+          </div>
+        </div>
+
+    </a>
+    
+`;
+  });
+  itinerariesContainer.appendChild(exploreCard);
+} catch (error) {
+  console.log(error);
+}
