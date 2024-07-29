@@ -94,8 +94,7 @@ axios
     detailsContainer?.appendChild(paths);
 
     // Initialize the accordion after adding it to the DOM
-    const accordion = new Accordion("myAccordion");
-    // accordion.init();
+    new Accordion("myAccordion");
   })
   .catch((err) => {
     console.log(err);
@@ -114,7 +113,6 @@ try {
   response.data.forEach((review: IReview) => {
     let ratings: string = "";
     for (let i = 0; i < 5; i++) {
-      console.log(i);
       if (i < Math.floor(review.rating)) {
         ratings += `<i class="fa-solid fa-star"></i> &nbsp;`;
       } else if (i === Math.floor(review.rating) && review.rating % 1 >= 0.5) {
