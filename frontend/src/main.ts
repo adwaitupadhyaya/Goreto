@@ -1,11 +1,13 @@
 import axios from "axios";
+// import axiosInstance from "./axios";
 import { IItinerary } from "./interface/itinerary";
 
 const exploreWrapper = document.getElementById(
-  "explore__wrapper"
+  "explore__wrapper",
 ) as HTMLDivElement;
 
 axios.get("http://localhost:3000/itineraries").then((response) => {
+  console.log(response.data.length);
   response.data.forEach((itinerary: IItinerary) => {
     const exploreCard = document.createElement("div");
 

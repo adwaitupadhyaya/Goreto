@@ -48,7 +48,7 @@ export class ItineraryModel extends BaseModel {
         "photos.photo_url"
       )
       .table("itineraries")
-      .innerJoin("photos", "photos.itinerary_id", "itineraries.id");
+      .leftJoin("photos", "photos.itinerary_id", "itineraries.id");
 
     return data;
   }
