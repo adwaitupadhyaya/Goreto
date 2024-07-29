@@ -74,7 +74,7 @@ axios
     let day = 1;
     for (const path of itineraryInfo) {
       const accordionItem = document.createElement("div");
-      accordionItem.className = "accordion-item mb-4 w-1/2";
+      accordionItem.className = "accordion-item mb-2 w-1/2";
       accordionItem.innerHTML = `
         <div class="accordion-header cursor-pointer bg-gray-200 p-2 rounded flex justify-between">
         <p>
@@ -103,8 +103,42 @@ axios
 
 try {
   const response = await axiosInstance.get(`/itineraries/${id}/reviews`);
-  response.data.forEach((element: IReview) => {
-    console.log(element);
+  const reviewItem = document.createElement("div");
+  reviewItem.style.display = "flex";
+  reviewItem.style.flexDirection = "column";
+  reviewItem.style.gap = "8px";
+  reviewItem.innerHTML = `
+  <h1 class="font-bold text-xl -mt-5 ">Reviews</h1>
+  `;
+  reviewItem.style.width = "65%";
+  response.data.forEach((review: IReview) => {
+    let ratings: string = "";
+    for (let i = 0; i < 5; i++) {
+      console.log(i);
+      if (i < Math.floor(review.rating)) {
+        ratings += `<i class="fa-solid fa-star"></i> &nbsp;`;
+      } else if (i === Math.floor(review.rating) && review.rating % 1 >= 0.5) {
+        ratings += `<i class="fa-solid fa-star-half-stroke"></i> &nbsp;`;
+      } else {
+        ratings += `<i class="fa-regular fa-star"></i>`;
+      }
+    }
+    reviewItem.innerHTML += `<article class="bg-white w-full">
+    <div class="flex items-center mb-4">
+        <img class="w-10 h-10 me-4 rounded-full" src="${review.profilePicture}" alt="">
+        <div class="font-medium">
+            <p>${review.username} </p>
+            <p>${ratings} </p>
+        </div>
+    </div>
+    <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
+       
+        <h3 class="ms-2 text-sm font-semibold text-gray-900 dark:text-white">${review.content}</h3>
+    </div>
+  
+</article>
+`;
+    detailsContainer?.appendChild(reviewItem);
   });
 } catch (error) {
   console.log(error);

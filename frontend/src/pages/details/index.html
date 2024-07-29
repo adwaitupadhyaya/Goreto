@@ -17,9 +17,9 @@
       href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css"
     />
   </head>
-  <body class="bg-gray-300">
+  <body class="flex flex-col items-center bg-gray-300">
     <!-- Navigation Bar -->
-    <section class="header">
+    <section class="header w-full">
       <nav
         class="sticky top-0 mx-auto w-full rounded-xl border border-white/80 bg-white bg-opacity-80 px-4 py-2 text-white shadow-md backdrop-blur-2xl backdrop-saturate-200 lg:px-8 lg:py-4"
       >
@@ -108,6 +108,7 @@
       </nav>
     </section>
     <!-- Navigation Bar -->
+
     <!-- loader -->
     <div
       class="loader grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible"
@@ -143,65 +144,14 @@
     <section
       class="details__container mt-5 flex w-full flex-col items-center justify-center"
     ></section>
+
+    <!-- reviews -->
     <section
-      class="reviews__container mt-5 flex w-8/12 flex-col items-center justify-center bg-white"
+      class="reviews__container flex w-8/12 flex-col items-center justify-center bg-white"
     >
       <div
-        class="itinerary__review relative flex w-8/12 flex-col items-center gap-5 px-3"
-      >
-        <div class="review flex w-full gap-5">
-          <div class="user__image flex items-center justify-center">
-            <i class="fa-solid fa-2x fa-user"></i>
-          </div>
-          <div class="review__details">
-            <p>Reviewed By sarad7</p>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star-half-stroke"></i>
-            <p>Can be better okayyyy</p>
-          </div>
-        </div>
-        <div class="review flex w-full gap-5">
-          <div class="user__image flex items-center justify-center">
-            <i class="fa-solid fa-2x fa-user"></i>
-          </div>
-          <div class="review__details">
-            <p>Reviewed By sarad7</p>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star-half-stroke"></i>
-            <p>Can be better okayyyy</p>
-          </div>
-        </div>
-        <div class="review flex w-full gap-5">
-          <div class="user__image flex items-center justify-center">
-            <i class="fa-solid fa-2x fa-user"></i>
-          </div>
-          <div class="review__details">
-            <p>Reviewed By sarad7</p>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star-half-stroke"></i>
-            <p>Can be better okayyyy</p>
-          </div>
-        </div>
-        <div class="review flex w-full gap-5">
-          <div class="user__image flex items-center justify-center">
-            <i class="fa-solid fa-2x fa-user"></i>
-          </div>
-          <div class="review__details">
-            <p>Reviewed By sarad7</p>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-star-half-stroke"></i>
-            <p>Can be better okayyyy</p>
-          </div>
-        </div>
-      </div>
+        class="itinerary__review relative flex w-full flex-col gap-5 px-3"
+      ></div>
     </section>
 
     <script type="module" src="./index.ts"></script>

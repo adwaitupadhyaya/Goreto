@@ -16,9 +16,16 @@ export class ReviewModel extends BaseModel {
 
   static async get(itineraryId: string) {
     const reviews = await this.queryBuilder()
-      .select("*")
+      .select(
+        "reviews.rating",
+        "reviews.content",
+        "users.username",
+        "users.profilePicture"
+      )
       .table("reviews")
-      .where({ itineraryId });
+      .innerJoin("users", "users.id", "reviews.reviewed_by")
+      .where({ itineraryId })
+      .orderBy("reviews.rating");
 
     return reviews;
   }
