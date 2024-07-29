@@ -3,4 +3,5 @@ export interface IReview {
   content: string;
   username: string;
   profilePicture: string;
+  createdAt: string;
 }

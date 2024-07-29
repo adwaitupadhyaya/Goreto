@@ -56,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 let counter = 1;
 addLocationButton?.addEventListener("click", (e) => {
-  console.log("clicked");
   e.preventDefault();
   const newLocation = document.createElement("div");
   newLocation.style.width = "20%";
@@ -127,7 +126,6 @@ createForm.addEventListener("submit", async (e) => {
 
 try {
   const response = await axiosInstance.get("/itineraries");
-  console.log(response.data);
   let exploreCard = document.createElement("div");
   exploreCard.style.width = "100%";
   exploreCard.style.display = "flex";

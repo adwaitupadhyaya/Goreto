@@ -20,7 +20,8 @@ export class ReviewModel extends BaseModel {
         "reviews.rating",
         "reviews.content",
         "users.username",
-        "users.profilePicture"
+        "users.profilePicture",
+        "reviews.created_at"
       )
       .table("reviews")
       .innerJoin("users", "users.id", "reviews.reviewed_by")

@@ -2,6 +2,7 @@ import axios from "axios";
 import { Accordion } from "../../utils/accordion";
 import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
+import { getTimeAgo } from "../../utils/getTimeAgo";
 // import { Accordion } from "../../utils/accordion";
 const searchParams = new URLSearchParams(window.location.search);
 const loader = document.querySelector(".loader") as HTMLDivElement;
@@ -35,7 +36,7 @@ axios
           ${itineraryInfo[0].title}
         </h1>
       </div>
-      <div class="itinerary_details w-8/12 bg-white p-5">
+      <div class="itinerary_details w-8/12 bg-white p-5 rounded-md">
         <div class="facts flex gap-10">
           <p class="capitalize">
             <span class="font-extrabold">
@@ -67,6 +68,7 @@ axios
       </div>`;
     const paths = document.createElement("div");
     paths.id = "myAccordion";
+    paths.classList.add("rounded-md");
     paths.style.width = "63.3%";
     paths.style.backgroundColor = "white";
     paths.style.paddingLeft = "30px";
@@ -74,7 +76,7 @@ axios
     let day = 1;
     for (const path of itineraryInfo) {
       const accordionItem = document.createElement("div");
-      accordionItem.className = "accordion-item mb-2 w-1/2";
+      accordionItem.className = "accordion-item mb-2 w-1/2 rounded-md";
       accordionItem.innerHTML = `
         <div class="accordion-header cursor-pointer bg-gray-200 p-2 rounded flex justify-between">
         <p>
@@ -111,6 +113,7 @@ try {
   `;
   reviewItem.style.width = "65%";
   response.data.forEach((review: IReview) => {
+    console.log(review);
     let ratings: string = "";
     for (let i = 0; i < 5; i++) {
       if (i < Math.floor(review.rating)) {
@@ -118,20 +121,23 @@ try {
       } else if (i === Math.floor(review.rating) && review.rating % 1 >= 0.5) {
         ratings += `<i class="fa-solid fa-star-half-stroke"></i> &nbsp;`;
       } else {
-        ratings += `<i class="fa-regular fa-star"></i>`;
+        ratings += `<i class="fa-regular fa-star"></i> &nbsp;`;
       }
     }
-    reviewItem.innerHTML += `<article class="bg-white w-full">
+
+    const ago = getTimeAgo(review.createdAt);
+
+    reviewItem.innerHTML += `<article class="bg-white w-full  p-3 rounded-md">
     <div class="flex items-center mb-4">
         <img class="w-10 h-10 me-4 rounded-full" src="${review.profilePicture}" alt="">
         <div class="font-medium">
-            <p>${review.username} </p>
+            <p>${review.username}</p>
             <p>${ratings} </p>
         </div>
     </div>
-    <div class="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
-       
+    <div class="flex flex-col items-start mb-1 space-x-1 rtl:space-x-reverse justify-start">
         <h3 class="ms-2 text-sm font-semibold text-gray-900 dark:text-white">${review.content}</h3>
+        <h3 class="text-gray-700 text-xs">${ago}</h3>       
     </div>
   
 </article>
