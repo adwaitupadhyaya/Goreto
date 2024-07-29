@@ -129,7 +129,7 @@ try {
 
     reviewItem.innerHTML += `<article class="bg-white w-full  p-3 rounded-md">
     <div class="flex items-center mb-4">
-        <img class="w-10 h-10 me-4 rounded-full" src="${review.profilePicture}" alt="">
+        <img class="w-10 h-10 me-4 rounded-full object-cover" src="${review.profilePicture}" alt="">
         <div class="font-medium">
             <p>${review.username}</p>
             <p>${ratings} </p>
@@ -137,7 +137,7 @@ try {
     </div>
     <div class="flex flex-col items-start mb-1 space-x-1 rtl:space-x-reverse justify-start">
         <h3 class="ms-2 text-sm font-semibold text-gray-900 dark:text-white">${review.content}</h3>
-        <h3 class="text-gray-700 text-xs">${ago}</h3>       
+        <h3 class="text-gray-700 text-xs mt-2">${ago}</h3>       
     </div>
   
 </article>
