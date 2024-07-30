@@ -19,7 +19,11 @@ export async function getItineraryById(id: string) {
   if (data.length === 0) {
     throw new NotFoundError(`Itinerary with id ${id} not found`);
   }
+  return data;
+}
 
+export async function getByUserId(userId: string) {
+  const data = await ItineraryModel.ItineraryModel.getByUserId(userId);
   return data;
 }
 

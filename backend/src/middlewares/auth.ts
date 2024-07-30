@@ -22,6 +22,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
 
   try {
     const user = verify(tokens[1], config.jwt.secret!) as IUser;
+
     req.user = user;
   } catch (error) {
     return res.status(HttpStatusCodes.UNAUTHORIZED).json({

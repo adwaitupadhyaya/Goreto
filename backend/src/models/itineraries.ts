@@ -90,6 +90,23 @@ export class ItineraryModel extends BaseModel {
     return data;
   }
 
+  static async getByUserId(userId: string) {
+    const data = await this.queryBuilder()
+      .select(
+        "itineraries.title",
+        "itineraries.id",
+        "itineraries.description",
+        "itineraries.number_of_days",
+        "itineraries.difficulty",
+        "photos.photo_url"
+      )
+      .table("itineraries")
+      .innerJoin("photos", "itineraries.id", "photos.itinerary_id")
+      .where({ createdBy: +userId });
+
+    return data;
+  }
+
   static async update(
     itinerary: Omit<IItinerary, "id" | "created_by">,
     userId: string,

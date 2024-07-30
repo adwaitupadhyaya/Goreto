@@ -37,4 +37,14 @@ export class UserModel extends BaseModel {
       .first();
     return user;
   }
+
+  static async update(
+    user: Omit<IUser, "id" | "password" | "profile_picture">,
+    id: string
+  ) {
+    const query = await this.queryBuilder()
+      .table("users")
+      .where({ id })
+      .update(user);
+  }
 }

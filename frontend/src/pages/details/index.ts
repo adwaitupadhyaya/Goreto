@@ -7,7 +7,10 @@ import swal from "sweetalert2";
 // import { Accordion } from "../../utils/accordion";
 const searchParams = new URLSearchParams(window.location.search);
 const loader = document.querySelector(".loader") as HTMLDivElement;
-const detailsContainer = document.querySelector(".details__container");
+const detailsContainer = document.querySelector(
+  ".details__container",
+) as HTMLDivElement;
+const loginButtons = document.getElementById("loginButtons") as HTMLDivElement;
 
 const accessToken = localStorage.getItem("accessToken");
 const config = {
@@ -24,7 +27,6 @@ axios
   .get(`http://localhost:3000/itineraries/${id}`)
   .then((res) => {
     const itineraryInfo = res.data;
-    console.log(itineraryInfo[0]);
     const itineraryDetails = document.createElement("div");
     itineraryDetails.style.display = "flex";
     itineraryDetails.style.flexDirection = "column";
@@ -181,6 +183,9 @@ try {
 // form section
 try {
   await axiosInstance.get("users/me", config);
+  loginButtons.innerHTML = `
+  <button onclick="history.back()" class="cursor-pointer select-none rounded-lg bg-[#075755] px-4 py-2 text-center align-middle font-sans text-xs uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block">Back</button>
+  `;
 } catch (error) {
   const reviewInput = document.getElementById("reviewText") as HTMLInputElement;
   const reviewRating = document.getElementById("rating") as HTMLSelectElement;
@@ -191,7 +196,7 @@ try {
 const reviewForm = document.getElementById("reviewForm") as HTMLFormElement;
 reviewForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  console.log("clicked");
+
   const target = e.target as HTMLFormElement;
   const reviewFormData = {
     content: target.reviewText.value,
@@ -199,10 +204,7 @@ reviewForm.addEventListener("submit", async (e) => {
   };
 
   try {
-    const response = await axiosInstance.post(
-      `/itineraries/${id}/reviews`,
-      reviewFormData,
-    );
+    await axiosInstance.post(`/itineraries/${id}/reviews`, reviewFormData);
 
     swal.fire({
       title: "Reviewed Succesfully",
@@ -213,7 +215,12 @@ reviewForm.addEventListener("submit", async (e) => {
     setTimeout(() => {
       window.location.reload();
     }, 2000);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    swal.fire({
+      title: `${error.response.data.error}`,
+      icon: "error",
+      showCancelButton: true,
+      timer: 1500,
+    });
   }
 });

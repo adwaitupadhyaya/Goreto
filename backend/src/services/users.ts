@@ -16,3 +16,14 @@ export async function getUserByUsername(username: string) {
 export async function getUserByEmail(email: string) {
   return await userModel.UserModel.getUserByEmail(email);
 }
+
+export async function updateUser(
+  user: Omit<IUser, "id" | "password" | "profile_picture">,
+  id: string
+) {
+  try {
+    const data = await userModel.UserModel.update(user, id);
+  } catch (error) {
+    throw new Error(`${error}`);
+  }
+}

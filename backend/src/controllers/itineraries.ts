@@ -2,6 +2,7 @@ import { NextFunction, Response } from "express";
 import { Request } from "../interfaces/auth";
 import * as itineraryServices from "../services/itineraries";
 import HttpStatusCodes from "http-status-codes";
+import { log } from "console";
 
 export async function createItinerary(
   req: Request,
@@ -44,6 +45,20 @@ export async function getItineraryById(
   try {
     const data = await itineraryServices.getItineraryById(itineraryId);
     res.status(HttpStatusCodes.OK).json(data);
+  } catch (error) {
+    next(error);
+  }
+}
+
+export async function getByUserId(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const userId = req.user!.id;
+  try {
+    const data = await itineraryServices.getByUserId(userId);
+    res.status(HttpStatusCodes.OK).send(data);
   } catch (error) {
     next(error);
   }

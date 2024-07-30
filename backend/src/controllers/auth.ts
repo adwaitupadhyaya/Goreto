@@ -1,4 +1,3 @@
-import { BadRequestError } from "./../error/BadRequestError";
 import { NextFunction, Request, Response } from "express";
 import * as AuthServices from "../services/auth";
 import HttpStatusCodes from "http-status-codes";

@@ -5,6 +5,7 @@ import * as userServices from "../services/users";
 import { sign } from "jsonwebtoken";
 import config from "../config";
 import { BadRequestError } from "../error/BadRequestError";
+import { log } from "console";
 
 export async function signup(body: IUser) {
   const existingUser = await userServices.getUserByUsername(body.username);
@@ -44,9 +45,9 @@ export async function login(body: Pick<IUser, "username" | "password">) {
     id: user.id,
     username: user.username,
     email: user.email,
-    first_name: user.first_name,
-    last_name: user.last_name,
-    profile_picture: user.profile_picture,
+    first_name: user.firstName,
+    last_name: user.lastName,
+    profile_picture: user.profilePicture,
   };
 
   const accessToken = sign(paylaod, config.jwt.secret!, {

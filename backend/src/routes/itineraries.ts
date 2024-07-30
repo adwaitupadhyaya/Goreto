@@ -6,6 +6,7 @@ import {
   getItineraries,
   getItineraryById,
   updateItinerary,
+  getByUserId,
 } from "../controllers/itineraries";
 import { authenticate } from "../middlewares/auth";
 import { createItinerarySchema } from "../schema/itineraries";
@@ -22,6 +23,7 @@ router.post(
 );
 
 router.get("/", getItineraries);
+router.get("/getByUserss", authenticate, getByUserId);
 router.get("/:id", getItineraryById);
 router.put("/:id", authenticate, updateItinerary);
 router.delete("/:id", authenticate, deleteItinerary);
