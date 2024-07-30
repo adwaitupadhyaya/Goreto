@@ -45,8 +45,7 @@ export class ItineraryModel extends BaseModel {
         "itineraries.description",
         "itineraries.number_of_days",
         "itineraries.difficulty",
-        "photos.photo_url",
-        "users.username"
+        "photos.photo_url"
       )
       .table("itineraries")
       .innerJoin("photos", "photos.itinerary_id", "itineraries.id");
@@ -66,6 +65,7 @@ export class ItineraryModel extends BaseModel {
         "locations.location_name",
         "photos.photo_url"
       )
+      .avg("reviews.rating as average_rating")
       .table("itineraries")
       .join(
         "itinerary_locations",
@@ -74,7 +74,18 @@ export class ItineraryModel extends BaseModel {
       )
       .join("locations", "locations.id", "itinerary_locations.location_id")
       .join("photos", "photos.itinerary_id", "itineraries.id")
-      .where({ "itineraries.id": +id });
+      .leftJoin("reviews", "reviews.itinerary_id", "itineraries.id")
+      .where({ "itineraries.id": +id })
+      .groupBy(
+        "itineraries.id",
+        "itineraries.title",
+        "itineraries.description",
+        "itineraries.number_of_days",
+        "itineraries.difficulty",
+        "itinerary_locations.day",
+        "locations.location_name",
+        "photos.photo_url"
+      );
 
     return data;
   }

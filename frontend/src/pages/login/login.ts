@@ -8,10 +8,10 @@ import Toastify from "toastify-js";
 const loginForm = document.getElementById("login") as HTMLFormElement;
 const signupForm = document.getElementById("signup") as HTMLFormElement;
 const submitErrorArea = document.getElementById(
-  "error_container"
+  "error_container",
 ) as HTMLDivElement;
 const loginErrorArea = document.getElementById(
-  "login_error_container"
+  "login_error_container",
 ) as HTMLDivElement;
 
 loginForm.addEventListener("submit", (event) => {
@@ -28,7 +28,7 @@ loginForm.addEventListener("submit", (event) => {
     .then((response) => {
       localStorage.setItem(
         "accessToken",
-        `${response.data.tokens.accessToken}`
+        `${response.data.tokens.accessToken}`,
       );
 
       window.location.href =
@@ -73,7 +73,7 @@ function displayErrors(errorMessage: string, errorDisplayArea: HTMLDivElement) {
 function submitForm(formData: IForm) {
   axios
     .post(`http://localhost:3000/auth/signup`, formData)
-    .then((response) => {
+    .then(() => {
       setTimeout(() => {
         window.location.href =
           "http://localhost:5173/src/pages/login/login.html"; // Replace with your desired redirect URL

@@ -3,10 +3,16 @@ import { Accordion } from "../../utils/accordion";
 import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
 import { getTimeAgo } from "../../utils/getTimeAgo";
+import swal from "sweetalert2";
 // import { Accordion } from "../../utils/accordion";
 const searchParams = new URLSearchParams(window.location.search);
 const loader = document.querySelector(".loader") as HTMLDivElement;
 const detailsContainer = document.querySelector(".details__container");
+
+const accessToken = localStorage.getItem("accessToken");
+const config = {
+  headers: { Authorization: `Bearer ${accessToken}` },
+};
 
 setTimeout(() => {
   loader.style.display = "none";
@@ -18,6 +24,7 @@ axios
   .get(`http://localhost:3000/itineraries/${id}`)
   .then((res) => {
     const itineraryInfo = res.data;
+    console.log(itineraryInfo[0]);
     const itineraryDetails = document.createElement("div");
     itineraryDetails.style.display = "flex";
     itineraryDetails.style.flexDirection = "column";
@@ -57,7 +64,7 @@ axios
               <i class="fa-solid fa-star text-[#075755]"></i> &nbsp;
               Rating:</span
             >
-            4.5
+            ${itineraryInfo[0].averageRating}
           </p>
         </div>
         <p class="font-bold text-xl mt-8 ">Description</p>
@@ -110,10 +117,33 @@ try {
   reviewItem.style.gap = "8px";
   reviewItem.innerHTML = `
   <h1 class="font-bold text-xl -mt-5 ">Reviews</h1>
+  <form method="post" id="reviewForm">
+    <input type="text" placeholder="Give a review" class="p-3 rounded-md mb-3" id="reviewText" />
+
+    <div class = "flex justify-between">
+    <div> 
+    <label class="mt-3" for="cars">Give a rating :</label>
+    <select id="rating" name="cars" class="rounded-md p-2">
+    <option></option>
+    <option value="0.5">0.5</option>
+    <option value="1">1</option>
+    <option value="1.5">1.5</option>
+    <option value="2">2</option>
+    <option value="2.5">2.5</option>
+    <option value="3">3</option>
+    <option value="3.5">3.5</option>
+    <option value="4">4</option>
+    <option value="4.5">4.5</option>    
+    <option value="5">5</option>
+    </select>
+    </div>
+    <button class="w-1/6 cursor-pointer select-none rounded-lg bg-[#075755] px-4 py-2 text-center align-middle font-sans text-xs uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block type="submit">Submit</button>
+    </div>
+    
+  </form>
   `;
   reviewItem.style.width = "65%";
   response.data.forEach((review: IReview) => {
-    console.log(review);
     let ratings: string = "";
     for (let i = 0; i < 5; i++) {
       if (i < Math.floor(review.rating)) {
@@ -147,3 +177,43 @@ try {
 } catch (error) {
   console.log(error);
 }
+
+// form section
+try {
+  await axiosInstance.get("users/me", config);
+} catch (error) {
+  const reviewInput = document.getElementById("reviewText") as HTMLInputElement;
+  const reviewRating = document.getElementById("rating") as HTMLSelectElement;
+  reviewInput.disabled = true;
+  reviewRating.disabled = true;
+}
+
+const reviewForm = document.getElementById("reviewForm") as HTMLFormElement;
+reviewForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  console.log("clicked");
+  const target = e.target as HTMLFormElement;
+  const reviewFormData = {
+    content: target.reviewText.value,
+    rating: target.rating.value,
+  };
+
+  try {
+    const response = await axiosInstance.post(
+      `/itineraries/${id}/reviews`,
+      reviewFormData,
+    );
+
+    swal.fire({
+      title: "Reviewed Succesfully",
+      icon: "success",
+      showCancelButton: true,
+    });
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  } catch (error) {
+    console.log(error);
+  }
+});
