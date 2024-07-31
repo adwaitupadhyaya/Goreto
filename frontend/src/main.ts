@@ -94,21 +94,19 @@ searchForm.addEventListener("submit", async (event) => {
 `;
       exploreWrapper.appendChild(exploreCard);
     });
-  } catch (error) {
-    console.log(error);
-  }
-});
 
-filter.addEventListener("change", async (event) => {
-  exploreWrapper.innerHTML = ``;
-  const target = event.target as HTMLSelectElement;
+    filter.addEventListener("change", async (event) => {
+      exploreWrapper.innerHTML = ``;
+      const target = event.target as HTMLSelectElement;
 
-  try {
-    const data = await axiosInstance.get(`/itineraries?filter=${target.value}`);
-    data.data.forEach((itinerary: IItinerary) => {
-      const exploreCard = document.createElement("div");
+      try {
+        const data = await axiosInstance.get(
+          `/itineraries?filter=${target.value}&title=${searchQuery}`,
+        );
+        data.data.forEach((itinerary: IItinerary) => {
+          const exploreCard = document.createElement("div");
 
-      exploreCard.innerHTML = /*HTML*/ `        
+          exploreCard.innerHTML = /*HTML*/ `        
         <a href = "./src/pages/details/index.html?id=${itinerary.id}">
         <div
           class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"
@@ -140,7 +138,11 @@ filter.addEventListener("change", async (event) => {
     </a>
     
 `;
-      exploreWrapper.appendChild(exploreCard);
+          exploreWrapper.appendChild(exploreCard);
+        });
+      } catch (error) {
+        console.log(error);
+      }
     });
   } catch (error) {
     console.log(error);
