@@ -62,7 +62,8 @@
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  animation: typewriter 2s steps(44) 1s 1 normal both,
+  animation:
+    typewriter 2s steps(44) 1s 1 normal both,
     blinkTextCursor 0.5s step-end infinite,
     /* Keep the cursor blinking */ erase 2s steps(44) 4s 1 normal both; /* Add erase animation */
 }
@@ -82,7 +83,8 @@
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  animation: typewriterLoop 8s steps(44) infinite,
+  animation:
+    typewriterLoop 8s steps(44) infinite,
     blinkTextCursor 0.75s step-end infinite;
 }
 
@@ -92,7 +94,8 @@ html {
 @font-face {
   font-family: "proxima_nova_rgregular";
   src: url("https://litmus.com/fonts/Emails/proximanova-regular-webfont.eot");
-  src: url("https://litmus.com/fonts/Emails/proximanova-regular-webfont.eot?#iefix")
+  src:
+    url("https://litmus.com/fonts/Emails/proximanova-regular-webfont.eot?#iefix")
       format("embedded-opentype"),
     url("https://litmus.com/fonts/Emails/proximanova-regular-webfont.woff")
       format("woff"),
@@ -106,7 +109,8 @@ html {
 @font-face {
   font-family: "proxima_nova_rgbold";
   src: url("https://litmus.com/fonts/Emails/proximanova-bold-webfont.eot");
-  src: url("https://litmus.com/fonts/Emails/proximanova-bold-webfont.eot?#iefix")
+  src:
+    url("https://litmus.com/fonts/Emails/proximanova-bold-webfont.eot?#iefix")
       format("embedded-opentype"),
     url("https://litmus.com/fonts/Emails/proximanova-bold-webfont.woff")
       format("woff"),
@@ -121,7 +125,8 @@ html {
 @font-face {
   font-family: "adelle_rgregular";
   src: url("https://litmus.com/fonts/Emails/adelle_reg-webfont.eot");
-  src: url("https://litmus.com/fonts/Emails/adelle_reg-webfont.eot?#iefix")
+  src:
+    url("https://litmus.com/fonts/Emails/adelle_reg-webfont.eot?#iefix")
       format("embedded-opentype"),
     url("https://litmus.com/fonts/Emails/adelle_reg-webfont.woff")
       format("woff"),
@@ -209,7 +214,9 @@ nav {
 
 .form-control:focus {
   border-color: var(--green);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px;
+  box-shadow:
+    inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px;
 }
 
 input {

@@ -7,3 +7,8 @@ export interface IItinerary {
   difficulty: string;
   path: string[];
 }
+
+export interface GetItineraryQuery {
+  title?: string;
+  filter?: string;
+}

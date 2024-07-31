@@ -121,12 +121,12 @@
         <img src="./public/images/slide_1.jpg" alt="" />
       </div>
       <div class="hero__form">
-        <form>
+        <form id="searchForm" method="get">
           <h1 class="typewriter-text looping-text">Find Your Outside!</h1>
           <div class="input mb-3">
             <input
               type="text"
-              class="form-control search-input"
+              class="form-control search-input text-black"
               id="searchbar"
               aria-describedby="searchbar"
               placeholder="Search By Trek name or region"
@@ -138,8 +138,18 @@
     <!-- Hero Section -->
 
     <!-- Explore Section -->
-    <section class="explore mt-10 flex-col justify-center" id="explore">
+    <section class="explore mt-10 flex-col justify-center gap-5" id="explore">
       <h1 class="text-center text-4xl font-extrabold">Explore</h1>
+
+      <div class="mt-5 flex justify-center filter">
+        <label for="filter-by" class="text-center">Filter By: &nbsp;</label>
+        <select name="pets" id="filter-by" class="border-2 text-center">
+          <option value="">--Please choose an option--</option>
+          <option value="numberOfDays">Number of days</option>
+          <option value="rating">Rating</option>
+          <option value="difficulty">Difficulty</option>
+        </select>
+      </div>
 
       <div
         id="explore__wrapper"

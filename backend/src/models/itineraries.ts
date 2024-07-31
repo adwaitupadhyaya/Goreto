@@ -1,4 +1,4 @@
-import { IItinerary } from "../interfaces/itinerary";
+import { GetItineraryQuery, IItinerary } from "../interfaces/itinerary";
 import { createItinerarySchema } from "../schema/itineraries";
 import { BaseModel } from "./base";
 
@@ -37,19 +37,53 @@ export class ItineraryModel extends BaseModel {
     }
   }
 
-  static async get() {
-    const data = await this.queryBuilder()
-      .distinct("itineraries.title")
+  static async get(query: GetItineraryQuery) {
+    const { title, filter } = query;
+    const queryBuilder = this.queryBuilder()
       .select(
         "itineraries.id",
+        "itineraries.title",
         "itineraries.description",
         "itineraries.number_of_days",
         "itineraries.difficulty",
         "photos.photo_url"
       )
-      .table("itineraries")
-      .innerJoin("photos", "photos.itinerary_id", "itineraries.id");
+      .avg("reviews.rating as average_rating")
+      .from("itineraries")
+      .innerJoin("photos", "photos.itinerary_id", "itineraries.id")
+      .leftJoin("reviews", "reviews.itinerary_id", "itineraries.id")
+      .groupBy(
+        "itineraries.id",
+        "itineraries.title",
+        "itineraries.description",
+        "itineraries.number_of_days",
+        "itineraries.difficulty",
+        "photos.photo_url"
+      );
 
+    if (title) {
+      queryBuilder.whereLike("itineraries.title", `%${title}%`);
+    }
+
+    if (filter) {
+      switch (filter) {
+        case "rating":
+          queryBuilder.orderBy("average_rating", "desc");
+          break;
+        case "numberOfDays":
+          queryBuilder.orderBy("itineraries.number_of_days", "desc");
+          break;
+        case "difficulty":
+          queryBuilder.orderBy("itineraries.difficulty", "desc");
+          break;
+        default:
+          queryBuilder.orderBy("itineraries.title", "desc");
+      }
+    } else {
+      queryBuilder.orderBy("itineraries.title", "asc");
+    }
+
+    const data = await queryBuilder;
     return data;
   }
 

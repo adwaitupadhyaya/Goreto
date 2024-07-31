@@ -5,4 +5,5 @@ export interface IItinerary {
   numberOfDays: string;
   difficulty: string;
   photoUrl: string;
+  averageRating: string;
 }

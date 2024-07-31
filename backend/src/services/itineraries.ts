@@ -1,6 +1,6 @@
 import { NotFoundError } from "./../error/NotFoundError";
 import * as ItineraryModel from "../models/itineraries";
-import { IItinerary } from "../interfaces/itinerary";
+import { GetItineraryQuery, IItinerary } from "../interfaces/itinerary";
 
 export async function createItinerary(
   body: Omit<IItinerary, "id" | "created_by">,
@@ -9,8 +9,8 @@ export async function createItinerary(
   await ItineraryModel.ItineraryModel.create(body, id);
 }
 
-export async function getItineraries() {
-  return await ItineraryModel.ItineraryModel.get();
+export async function getItineraries(query: GetItineraryQuery) {
+  return await ItineraryModel.ItineraryModel.get(query);
 }
 
 export async function getItineraryById(id: string) {

@@ -28,8 +28,10 @@ export async function getItineraries(
   res: Response,
   next: NextFunction
 ) {
+  const { query } = req;
+
   try {
-    const data = await itineraryServices.getItineraries();
+    const data = await itineraryServices.getItineraries(query);
     res.status(HttpStatusCodes.OK).json(data);
   } catch (error) {
     next(error);
