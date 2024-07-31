@@ -9,9 +9,17 @@ export async function getUsers(req: Request, res: Response) {
   return res.status(HttpStatusCodes.OK).json(allUsers);
 }
 
-export async function getMyDetails(req: Request, res: Response) {
-  console.log(req.user);
-  res.status(HttpStatusCodes.OK).send(req.user);
+export async function getMyDetails(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const data = await userServices.getUserByEmail(req.user!.email);
+    res.status(HttpStatusCodes.OK).send(data);
+  } catch (error) {
+    next(error);
+  }
 }
 
 export async function updateProfile(

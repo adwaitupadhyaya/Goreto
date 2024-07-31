@@ -86,7 +86,7 @@ export class ItineraryModel extends BaseModel {
         "locations.location_name",
         "photos.photo_url"
       );
-
+    console.log(data);
     return data;
   }
 
@@ -128,40 +128,40 @@ export class ItineraryModel extends BaseModel {
     const locations = itinerary.path;
 
     // Delete existing locations for the itinerary
-    await this.queryBuilder()
-      .delete()
-      .from("itineraryLocations")
-      .where({ itineraryId });
+    // await this.queryBuilder()
+    //   .delete()
+    //   .from("itineraryLocations")
+    //   .where({ itineraryId });
 
-    // Insert new locations
-    for (let day = 0; day < locations.length; day++) {
-      const locationName = locations[day];
+    // // Insert new locations
+    // for (let day = 0; day < locations.length; day++) {
+    //   const locationName = locations[day];
 
-      // Check if the location already exists in the "locations" table
-      let [location] = await this.queryBuilder()
-        .select("id")
-        .from("locations")
-        .where({ location_name: locationName });
+    //   // Check if the location already exists in the "locations" table
+    //   let [location] = await this.queryBuilder()
+    //     .select("id")
+    //     .from("locations")
+    //     .where({ location_name: locationName });
 
-      // If the location does not exist, insert it and get the new location ID
-      if (!location) {
-        [location] = await this.queryBuilder()
-          .insert({ location_name: locationName })
-          .into("locations")
-          .returning("id");
-      }
+    //   // If the location does not exist, insert it and get the new location ID
+    //   if (!location) {
+    //     [location] = await this.queryBuilder()
+    //       .insert({ location_name: locationName })
+    //       .into("locations")
+    //       .returning("id");
+    //   }
 
-      // Insert into itineraryLocations with the correct day
-      const itineraryLocation = {
-        locationId: location.id,
-        itineraryId,
-        day: day + 1,
-      };
+    //   // Insert into itineraryLocations with the correct day
+    //   const itineraryLocation = {
+    //     locationId: location.id,
+    //     itineraryId,
+    //     day: day + 1,
+    //   };
 
-      await this.queryBuilder()
-        .insert(itineraryLocation)
-        .into("itineraryLocations");
-    }
+    //   await this.queryBuilder()
+    //     .insert(itineraryLocation)
+    //     .into("itineraryLocations");
+    // }
 
     const updatedItinerary = await this.queryBuilder()
       .select(

@@ -1,3 +1,4 @@
+import { NotFoundError } from "./../error/NotFoundError";
 import { IUser } from "../interfaces/user";
 import * as userModel from "../models/users";
 
@@ -14,7 +15,11 @@ export async function getUserByUsername(username: string) {
 }
 
 export async function getUserByEmail(email: string) {
-  return await userModel.UserModel.getUserByEmail(email);
+  try {
+    return await userModel.UserModel.getUserByEmail(email);
+  } catch (error) {
+    throw new NotFoundError(`User with email ${email} not found`);
+  }
 }
 
 export async function updateUser(

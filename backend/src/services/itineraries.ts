@@ -32,7 +32,7 @@ export async function updateItinerary(
   id: string,
   body: Omit<IItinerary, "id" | "created_by">
 ) {
-  const itineraryExists = await ItineraryModel.ItineraryModel.getById(userId);
+  const itineraryExists = await ItineraryModel.ItineraryModel.getById(id);
   if (itineraryExists.length === 0) {
     throw new NotFoundError(`Itinerary with id ${id} not found`);
   }

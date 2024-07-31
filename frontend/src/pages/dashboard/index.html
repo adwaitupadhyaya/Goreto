@@ -76,7 +76,7 @@
     <!-- sidebar -->
 
     <!-- left section -->
-    <div class="right__content ml-[17rem] flex flex-col justify-start">
+    <div class="right__content relative ml-[17rem] flex flex-col justify-start">
       <!-- navbar -->
       <div class="sticky top-0 z-10 grid w-full rounded-lg lg:overflow-visible">
         <div class="max-h-[100vh] w-[calc(100%+48px)]">
@@ -230,16 +230,27 @@
             >
               Path
             </h6>
-            <button
-              type="button"
-              id="addLocation"
-              class="w-1/12 rounded-lg bg-[#075755] text-white"
-            >
-              <i class="fa-solid fa-plus"></i>
-            </button>
+
+            <div class="buttons flex gap-5">
+              <button
+                type="button"
+                id="addLocation"
+                class="w-[3%] rounded-lg bg-[#075755] text-white"
+              >
+                <i class="fa-solid fa-plus"></i>
+              </button>
+
+              <button
+                type="button"
+                id="removeLocation"
+                class="w-[3%] rounded-lg bg-[#075755] text-white"
+              >
+                <i class="fa-solid fa-minus"></i>
+              </button>
+            </div>
 
             <div
-              class="relative flex h-11 w-full min-w-[200px] flex-wrap gap-4"
+              class="relative flex h-11 w-full min-w-[200px] gap-4 overflow-y-hidden overflow-x-scroll"
               id="locations"
             >
               <input

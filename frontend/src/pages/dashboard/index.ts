@@ -12,6 +12,9 @@ const locationContainer = document.getElementById(
 const addLocationButton = document.getElementById(
   "addLocation",
 ) as HTMLButtonElement;
+const removeLocationButton = document.getElementById(
+  "removeLocation",
+) as HTMLButtonElement;
 const createForm = document.getElementById("createForm") as HTMLFormElement;
 const itinerariesContainer = document.getElementById(
   "itineraries__container",
@@ -70,8 +73,18 @@ addLocationButton?.addEventListener("click", (e) => {
               />
   `;
   counter++;
-
   locationContainer.appendChild(newLocation);
+});
+
+removeLocationButton.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const fieldToRemove = document.getElementById(
+    `location${counter}`,
+  ) as HTMLInputElement;
+
+  fieldToRemove.remove();
+  counter--;
 });
 
 createForm.addEventListener("submit", async (e) => {
