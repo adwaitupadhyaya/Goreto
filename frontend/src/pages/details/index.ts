@@ -4,6 +4,8 @@ import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
 import { getTimeAgo } from "../../utils/getTimeAgo";
 import swal from "sweetalert2";
+import { IUser } from "../../interface/user";
+import emailjs from "@emailjs/browser";
 // import { Accordion } from "../../utils/accordion";
 const searchParams = new URLSearchParams(window.location.search);
 const loader = document.querySelector(".loader") as HTMLDivElement;
@@ -57,7 +59,7 @@ axios
           </p>
           <p>
             <span class="font-extrabold">
-              <i class="fa-solid fa-clock text-[#075755]"></i> &nbsp;
+              <i class="fa-solid fa-clock text-[#075755] "></i> &nbsp;
               Days:</span
             >
             ${itineraryInfo[0].numberOfDays}
@@ -71,10 +73,23 @@ axios
           </p>
           </div>
 
-          <form id="shareForm" class="self-end bg-gray-200 w-52 p-3 mt-5 rounded-md">
-          <label for="shareUsername">Share to: </label>
+          <div class="formWrapper flex gap-10 absolute">
+          <form id="shareForm" class="flex flex-col self-end bg-gray-200 w-52 p-3 mt-5 rounded-md">
+
+          
+          <label for="shareUsername" class="flex justify-between">
+          <span>
+          Share to: 
+          </span>
+          <button type="submit">
+          <i class="fa-regular fa-paper-plane"></i>
+          </button>
+          </label>
             <input id="shareUsername" type="text" placeholder="Search user" class="p-2 rounded-md">
-          </form>
+
+          
+            </form>
+          </div>
 
         <p class="font-bold text-xl mt-8 ">Description</p>
         <p class="text-gray-700 text-justify">
@@ -187,10 +202,11 @@ try {
 } catch (error) {
   console.log(error);
 }
-
+let currentUser: string;
 // form section
 try {
-  await axiosInstance.get("users/me", config);
+  const data = await axiosInstance.get("users/me", config);
+  currentUser = data.data.username;
   loginButtons.innerHTML = `
   <button onclick="history.back()" class="cursor-pointer select-none rounded-lg bg-[#075755] px-4 py-2 text-center align-middle font-sans text-xs uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:inline-block">Back</button>
   `;
@@ -234,11 +250,91 @@ reviewForm.addEventListener("submit", async (e) => {
 });
 
 // share form section
+const shareForm = document.getElementById("shareForm") as HTMLFormElement;
 const shareSearch = document.getElementById(
   "shareUsername",
 ) as HTMLInputElement;
 
-shareSearch.addEventListener("input", (event) => {
+const usersSearchResult = document.createElement("div");
+shareSearch.addEventListener("input", async (event) => {
   const target = event.target as HTMLInputElement;
-  console.log(target.value);
+  usersSearchResult.innerHTML = ``;
+  if (target.value) {
+    try {
+      const data = await axiosInstance.get(`/users?name=${target.value}`);
+      data.data.forEach((element: IUser) => {
+        const userInfo = document.createElement("div") as HTMLDivElement;
+        userInfo.innerHTML = /*HTML*/ `
+          <div class="user-option bg-white p-1 cursor-pointer hover:bg-gray-300 transition-all mt-4 rounded-sm text-sm">${element.username} <span class="text-xs text-gray-600">(${element.email})</span>  </div>
+        `;
+        usersSearchResult.appendChild(userInfo);
+
+        userInfo.addEventListener("click", (event) => {
+          const clickedElement = event.target as HTMLElement;
+          const username = element.username;
+          shareSearch.value = username;
+          usersSearchResult.innerHTML = ""; // Clear the search results
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    usersSearchResult.innerHTML = "";
+  }
+
+  shareForm.appendChild(usersSearchResult);
+});
+
+shareForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const target = event.target as HTMLFormElement;
+  const recipientUser = target.shareUsername.value;
+
+  try {
+    const data = await axiosInstance.get(`/users?name=${recipientUser}`);
+    const destinationEmail = data.data[0].email;
+    console.log(destinationEmail, currentUser);
+
+    // EmailJS configuration
+    const serviceID = "service_ef7qh7i";
+    const templateID = "template_74wh7fd";
+    const userID = "RdzxzoqmlBUcFRBdk";
+
+    const templateParams = {
+      to_email: destinationEmail,
+      from_name: currentUser,
+      to_name: recipientUser,
+      message: `Check out this itinerary: ${window.location.href}`,
+    };
+
+    emailjs.send(serviceID, templateID, templateParams, userID).then(
+      (response) => {
+        console.log("Email sent successfully:", response);
+        swal.fire({
+          title: "Itinerary Shared Successfully",
+          text: `An email has been sent to ${recipientUser}`,
+          icon: "success",
+          timer: 2000,
+        });
+      },
+      (error) => {
+        console.error("Error sending email:", error);
+        swal.fire({
+          title: "Error Sharing Itinerary",
+          text: "There was an problem sending the email. Please try again later.",
+          icon: "error",
+          timer: 2000,
+        });
+      },
+    );
+  } catch (error) {
+    console.log(error);
+    swal.fire({
+      title: "Error Sharing Itinerary",
+      text: "User not found or an error occurred.",
+      icon: "error",
+      timer: 2000,
+    });
+  }
 });

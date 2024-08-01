@@ -8,7 +8,7 @@ export class UserModel extends BaseModel {
   }
 
   static async getUsers(query: GetUserQuery) {
-    const { name } = query;
+    const { name, email } = query;
     const queryBuilder = this.queryBuilder()
       .select(
         "users.first_name",
@@ -21,6 +21,9 @@ export class UserModel extends BaseModel {
 
     if (name) {
       queryBuilder.whereLike("users.username", `${name}%`);
+    }
+    if (email) {
+      queryBuilder.where(email);
     }
     const users = await queryBuilder;
     return users;
