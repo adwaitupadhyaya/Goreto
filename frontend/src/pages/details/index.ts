@@ -33,7 +33,8 @@ axios
     itineraryDetails.style.justifyContent = "center";
     itineraryDetails.style.alignItems = "center";
     itineraryDetails.style.width = "95%";
-    itineraryDetails.innerHTML = `      <div class="itinerary_image flex flex-col items-center relative w-8/12">
+    itineraryDetails.innerHTML = /*HTML*/ `      
+    <div class="itinerary_image flex flex-col items-center relative w-8/12">
         <img
           class="w-full rounded-md h-[400px] object-cover"
           src="${itineraryInfo[0].photoUrl}"
@@ -66,15 +67,22 @@ axios
               <i class="fa-solid fa-star text-[#075755]"></i> &nbsp;
               Rating:</span
             >
-            ${itineraryInfo[0].averageRating}
+            ${itineraryInfo[0].averageRating.toPrecision(3)}
           </p>
-        </div>
+          </div>
+
+          <form id="shareForm" class="self-end bg-gray-200 w-52 p-3 mt-5 rounded-md">
+          <label for="shareUsername">Share to: </label>
+            <input id="shareUsername" type="text" placeholder="Search user" class="p-2 rounded-md">
+          </form>
+
         <p class="font-bold text-xl mt-8 ">Description</p>
         <p class="text-gray-700 text-justify">
           ${itineraryInfo[0].description}
         </p>
         <p class="font-bold text-xl mt-8 ">Path</p>
       </div>`;
+
     const paths = document.createElement("div");
     paths.id = "myAccordion";
     paths.classList.add("rounded-md");
@@ -223,4 +231,14 @@ reviewForm.addEventListener("submit", async (e) => {
       timer: 1500,
     });
   }
+});
+
+// share form section
+const shareSearch = document.getElementById(
+  "shareUsername",
+) as HTMLInputElement;
+
+shareSearch.addEventListener("input", (event) => {
+  const target = event.target as HTMLInputElement;
+  console.log(target.value);
 });

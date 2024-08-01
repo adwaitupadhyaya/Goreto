@@ -120,7 +120,6 @@ export class ItineraryModel extends BaseModel {
         "locations.location_name",
         "photos.photo_url"
       );
-    console.log(data);
     return data;
   }
 

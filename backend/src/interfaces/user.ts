@@ -7,3 +7,7 @@ export interface IUser {
   last_name: string;
   profile_picture?: string;
 }
+
+export interface GetUserQuery {
+  name?: string;
+}

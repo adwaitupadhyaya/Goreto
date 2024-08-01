@@ -1,4 +1,4 @@
-import { IUser } from "../interfaces/user";
+import { GetUserQuery, IUser } from "../interfaces/user";
 import { BaseModel } from "./base";
 export class UserModel extends BaseModel {
   static async create(user: Omit<IUser, "id">) {
@@ -7,8 +7,9 @@ export class UserModel extends BaseModel {
     return user;
   }
 
-  static async getUsers() {
-    const users = await this.queryBuilder()
+  static async getUsers(query: GetUserQuery) {
+    const { name } = query;
+    const queryBuilder = this.queryBuilder()
       .select(
         "users.first_name",
         "users.last_name",
@@ -17,6 +18,11 @@ export class UserModel extends BaseModel {
         "users.profile_picture"
       )
       .table("users");
+
+    if (name) {
+      queryBuilder.whereLike("users.username", `${name}%`);
+    }
+    const users = await queryBuilder;
     return users;
   }
 

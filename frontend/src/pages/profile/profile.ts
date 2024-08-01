@@ -148,7 +148,6 @@ try {
             description: target.description.value,
             difficulty: target.difficulty.value,
           };
-          console.log(formData, itinerary.id);
           updateFunction(formData, itinerary.id);
         });
       } catch (error) {

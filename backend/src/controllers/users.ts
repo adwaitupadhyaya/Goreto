@@ -5,7 +5,8 @@ import { Request } from "../interfaces/auth";
 import * as userServices from "../services/users";
 
 export async function getUsers(req: Request, res: Response) {
-  const allUsers = await userServices.getUsers();
+  const { query } = req;
+  const allUsers = await userServices.getUsers(query);
   return res.status(HttpStatusCodes.OK).json(allUsers);
 }
 
