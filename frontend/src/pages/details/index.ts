@@ -294,7 +294,6 @@ shareForm.addEventListener("submit", async (event) => {
   try {
     const data = await axiosInstance.get(`/users?name=${recipientUser}`);
     const destinationEmail = data.data[0].email;
-    console.log(destinationEmail, currentUser);
 
     // EmailJS configuration
     const serviceID = "service_ef7qh7i";
@@ -305,15 +304,18 @@ shareForm.addEventListener("submit", async (event) => {
       to_email: destinationEmail,
       from_name: currentUser,
       to_name: recipientUser,
-      message: `Check out this itinerary: ${window.location.href}`,
+      message: `${currentUser} thinks you might enjoy this itinerary. Check it out!`,
+      itinerary_link: window.location.href,
     };
+
+    console.log("Template Params:", templateParams);
 
     emailjs.send(serviceID, templateID, templateParams, userID).then(
       (response) => {
         console.log("Email sent successfully:", response);
         swal.fire({
           title: "Itinerary Shared Successfully",
-          text: `An email has been sent to ${recipientUser}`,
+          text: `An email has been sent to ${recipientUser} (${destinationEmail})`,
           icon: "success",
           timer: 2000,
         });
@@ -322,14 +324,14 @@ shareForm.addEventListener("submit", async (event) => {
         console.error("Error sending email:", error);
         swal.fire({
           title: "Error Sharing Itinerary",
-          text: "There was an problem sending the email. Please try again later.",
+          text: "There was a problem sending the email. Please try again later.",
           icon: "error",
           timer: 2000,
         });
       },
     );
   } catch (error) {
-    console.log(error);
+    console.log("Error:", error);
     swal.fire({
       title: "Error Sharing Itinerary",
       text: "User not found or an error occurred.",
