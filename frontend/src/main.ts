@@ -2,6 +2,7 @@ import axios from "axios";
 // import axiosInstance from "./axios";
 import { IItinerary } from "./interface/itinerary";
 import axiosInstance from "./axios";
+import swal from "sweetalert2";
 
 const exploreWrapper = document.getElementById(
   "explore__wrapper",
@@ -94,8 +95,13 @@ searchForm.addEventListener("submit", async (event) => {
 `;
       exploreWrapper.appendChild(exploreCard);
     });
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    swal.fire({
+      title: `${error.response.data.error}`,
+      icon: "error",
+      showCancelButton: true,
+      timer: 1500,
+    });
   }
 });
 
@@ -142,7 +148,12 @@ filter.addEventListener("change", async (event) => {
 `;
       exploreWrapper.appendChild(exploreCard);
     });
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    swal.fire({
+      title: `${error.response.data.error}`,
+      icon: "error",
+      showCancelButton: true,
+      timer: 1500,
+    });
   }
 });

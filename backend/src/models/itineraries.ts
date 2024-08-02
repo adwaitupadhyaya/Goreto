@@ -50,7 +50,7 @@ export class ItineraryModel extends BaseModel {
       )
       .avg("reviews.rating as average_rating")
       .from("itineraries")
-      .innerJoin("photos", "photos.itinerary_id", "itineraries.id")
+      .leftJoin("photos", "photos.itinerary_id", "itineraries.id")
       .leftJoin("reviews", "reviews.itinerary_id", "itineraries.id")
       .groupBy(
         "itineraries.id",

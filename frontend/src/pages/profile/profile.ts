@@ -150,13 +150,23 @@ try {
           };
           updateFunction(formData, itinerary.id);
         });
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        swal.fire({
+          title: `${error.response.data.error}`,
+          icon: "error",
+          showCancelButton: true,
+          timer: 1500,
+        });
       }
     });
   });
-} catch (error) {
-  console.log(error);
+} catch (error: any) {
+  swal.fire({
+    title: `${error.response.data.error}`,
+    icon: "error",
+    showCancelButton: true,
+    timer: 1500,
+  });
 
   document.body.innerHTML = `Unauthorized`;
 }
@@ -189,8 +199,13 @@ updateForm.addEventListener("submit", async (e) => {
     setTimeout(() => {
       window.location.reload();
     }, 3000);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    swal.fire({
+      title: `${error.response.data.error}`,
+      icon: "error",
+      showCancelButton: true,
+      timer: 1500,
+    });
   }
 });
 
@@ -215,7 +230,12 @@ async function updateFunction(
     setTimeout(() => {
       window.location.reload();
     }, 2000);
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    swal.fire({
+      title: `${error.response.data.error}`,
+      icon: "error",
+      showCancelButton: true,
+      timer: 1500,
+    });
   }
 }

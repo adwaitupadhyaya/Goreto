@@ -19,6 +19,7 @@ const createForm = document.getElementById("createForm") as HTMLFormElement;
 const itinerariesContainer = document.getElementById(
   "itineraries__container",
 ) as HTMLDivElement;
+import swal from "sweetalert2";
 
 const accessToken = localStorage.getItem("accessToken");
 const config = {
@@ -132,8 +133,13 @@ createForm.addEventListener("submit", async (e) => {
         left: "10px",
       },
     }).showToast();
-  } catch (error) {
-    console.log(error);
+  } catch (error: any) {
+    swal.fire({
+      title: `${error.response.data.error}`,
+      icon: "error",
+      showCancelButton: true,
+      timer: 1500,
+    });
   }
 });
 
@@ -180,6 +186,11 @@ try {
 `;
   });
   itinerariesContainer.appendChild(exploreCard);
-} catch (error) {
-  console.log(error);
+} catch (error: any) {
+  swal.fire({
+    title: `${error.response.data.error}`,
+    icon: "error",
+    showCancelButton: true,
+    timer: 1500,
+  });
 }

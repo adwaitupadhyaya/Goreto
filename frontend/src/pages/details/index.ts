@@ -130,8 +130,13 @@ axios
     // Initialize the accordion after adding it to the DOM
     new Accordion("myAccordion");
   })
-  .catch((err) => {
-    console.log(err);
+  .catch((error) => {
+    swal.fire({
+      title: `${error.response.data.error}`,
+      icon: "error",
+      showCancelButton: true,
+      timer: 1500,
+    });
   });
 
 try {
@@ -199,8 +204,13 @@ try {
 `;
     detailsContainer?.appendChild(reviewItem);
   });
-} catch (error) {
-  console.log(error);
+} catch (error: any) {
+  swal.fire({
+    title: `${error.response.data.error}`,
+    icon: "error",
+    showCancelButton: true,
+    timer: 1500,
+  });
 }
 let currentUser: string;
 // form section
@@ -276,8 +286,13 @@ shareSearch.addEventListener("input", async (event) => {
           usersSearchResult.innerHTML = ""; // Clear the search results
         });
       });
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      swal.fire({
+        title: `${error.response.data.error}`,
+        icon: "error",
+        showCancelButton: true,
+        timer: 1500,
+      });
     }
   } else {
     usersSearchResult.innerHTML = "";
@@ -308,11 +323,8 @@ shareForm.addEventListener("submit", async (event) => {
       itinerary_link: window.location.href,
     };
 
-    console.log("Template Params:", templateParams);
-
     emailjs.send(serviceID, templateID, templateParams, userID).then(
       (response) => {
-        console.log("Email sent successfully:", response);
         swal.fire({
           title: "Itinerary Shared Successfully",
           text: `An email has been sent to ${recipientUser} (${destinationEmail})`,
@@ -321,7 +333,6 @@ shareForm.addEventListener("submit", async (event) => {
         });
       },
       (error) => {
-        console.error("Error sending email:", error);
         swal.fire({
           title: "Error Sharing Itinerary",
           text: "There was a problem sending the email. Please try again later.",
@@ -331,7 +342,6 @@ shareForm.addEventListener("submit", async (event) => {
       },
     );
   } catch (error) {
-    console.log("Error:", error);
     swal.fire({
       title: "Error Sharing Itinerary",
       text: "User not found or an error occurred.",
