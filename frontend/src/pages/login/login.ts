@@ -1,9 +1,9 @@
 // import { API_URL } from "../../config";
+import swal from "sweetalert2";
+import axiosInstance from "../../axios";
 import { IForm } from "../../interface/form";
 import { signUpSchema } from "../../schema/user";
 import { validateForm } from "../../utils/validator";
-import axios from "axios";
-import Toastify from "toastify-js";
 
 const loginForm = document.getElementById("login") as HTMLFormElement;
 const signupForm = document.getElementById("signup") as HTMLFormElement;
@@ -14,7 +14,7 @@ const loginErrorArea = document.getElementById(
   "login_error_container",
 ) as HTMLDivElement;
 
-loginForm.addEventListener("submit", (event) => {
+loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const target = event.target as HTMLFormElement;
 
@@ -23,27 +23,20 @@ loginForm.addEventListener("submit", (event) => {
     password: target.passwordLogin.value,
   };
 
-  axios
-    .post("http://localhost:3000/auth/login", loginData)
-    .then((response) => {
-      localStorage.setItem(
-        "accessToken",
-        `${response.data.tokens.accessToken}`,
-      );
+  try {
+    const response = await axiosInstance.post("/auth/login", loginData);
+    localStorage.setItem("accessToken", `${response.data.tokens.accessToken}`);
 
-      window.location.href =
-        "http://localhost:5173/src/pages/dashboard/index.html";
-    })
-    .catch((error) => {
-      displayErrors(error.response.data.message, loginErrorArea);
-    });
+    window.location.href =
+      "http://localhost:5173/src/pages/dashboard/index.html";
+  } catch (error: any) {
+    displayErrors(error.response.data.message, loginErrorArea);
+  }
 });
 
-signupForm.addEventListener("submit", (event) => {
+signupForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-
   const target = event.target as HTMLFormElement;
-
   const formData = {
     first_name: target.firstName.value,
     last_name: target.lastName.value,
@@ -57,7 +50,7 @@ signupForm.addEventListener("submit", (event) => {
   if (errors) {
     displayErrors(errors[0].message, submitErrorArea);
   } else {
-    submitForm(formData);
+    await submitForm(formData);
   }
 });
 
@@ -70,33 +63,19 @@ function displayErrors(errorMessage: string, errorDisplayArea: HTMLDivElement) {
   errorDisplayArea.appendChild(error);
 }
 
-function submitForm(formData: IForm) {
-  axios
-    .post(`http://localhost:3000/auth/signup`, formData)
-    .then(() => {
-      setTimeout(() => {
-        window.location.href =
-          "http://localhost:5173/src/pages/login/login.html"; // Replace with your desired redirect URL
-      }, 3000);
-      Toastify({
-        text: `Signed up succesfully`,
-        duration: 3000,
-        destination: "https://github.com/apvarun/toastify-js",
-        newWindow: true,
-        gravity: "top", // `top` or `bottom`
-        position: "right", // `left`, `center` or `right`
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-        style: {
-          background: "#6bc070",
-          color: "white",
-          padding: "10px",
-          zIndex: "99",
-          position: "absolute",
-          left: "10px",
-        },
-      }).showToast();
-    })
-    .catch((error) => {
-      displayErrors(error.response.data.message, submitErrorArea);
+async function submitForm(formData: IForm) {
+  try {
+    await axiosInstance.post("/auth/signup", formData);
+    setTimeout(() => {
+      window.location.href = "http://localhost:5173/src/pages/login/login.html"; // Replace with your desired redirect URL
+    }, 2000);
+    swal.fire({
+      title: `Signed up successfully`,
+      icon: "error",
+      showCancelButton: true,
+      timer: 1500,
     });
+  } catch (error: any) {
+    displayErrors(error.response.data.message, submitErrorArea);
+  }
 }

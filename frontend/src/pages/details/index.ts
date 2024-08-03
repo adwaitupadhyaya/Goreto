@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Accordion } from "../../utils/accordion";
 import axiosInstance from "../../axios";
 import { IReview } from "../../interface/review";
@@ -25,17 +24,16 @@ setTimeout(() => {
 
 const id = searchParams.toString().split("=")[1];
 
-axios
-  .get(`http://localhost:3000/itineraries/${id}`)
-  .then((res) => {
-    const itineraryInfo = res.data;
-    const itineraryDetails = document.createElement("div");
-    itineraryDetails.style.display = "flex";
-    itineraryDetails.style.flexDirection = "column";
-    itineraryDetails.style.justifyContent = "center";
-    itineraryDetails.style.alignItems = "center";
-    itineraryDetails.style.width = "95%";
-    itineraryDetails.innerHTML = /*HTML*/ `      
+try {
+  const res = await axiosInstance.get(`/itineraries/${id}`);
+  const itineraryInfo = res.data;
+  const itineraryDetails = document.createElement("div");
+  itineraryDetails.style.display = "flex";
+  itineraryDetails.style.flexDirection = "column";
+  itineraryDetails.style.justifyContent = "center";
+  itineraryDetails.style.alignItems = "center";
+  itineraryDetails.style.width = "95%";
+  itineraryDetails.innerHTML = /*HTML*/ `      
     <div class="itinerary_image flex flex-col items-center relative w-8/12">
         <img
           class="w-full rounded-md h-[400px] object-cover"
@@ -69,7 +67,7 @@ axios
               <i class="fa-solid fa-star text-[#075755]"></i> &nbsp;
               Rating:</span
             >
-            ${itineraryInfo[0].averageRating.toPrecision(3)}
+            ${itineraryInfo[0].averageRating ? itineraryInfo[0].averageRating : "N/A"}
           </p>
           </div>
 
@@ -98,18 +96,18 @@ axios
         <p class="font-bold text-xl mt-8 ">Path</p>
       </div>`;
 
-    const paths = document.createElement("div");
-    paths.id = "myAccordion";
-    paths.classList.add("rounded-md");
-    paths.style.width = "63.3%";
-    paths.style.backgroundColor = "white";
-    paths.style.paddingLeft = "30px";
-    paths.style.marginBottom = "30px";
-    let day = 1;
-    for (const path of itineraryInfo) {
-      const accordionItem = document.createElement("div");
-      accordionItem.className = "accordion-item mb-2 w-1/2 rounded-md";
-      accordionItem.innerHTML = `
+  const paths = document.createElement("div");
+  paths.id = "myAccordion";
+  paths.classList.add("rounded-md");
+  paths.style.width = "63.3%";
+  paths.style.backgroundColor = "white";
+  paths.style.paddingLeft = "30px";
+  paths.style.marginBottom = "30px";
+  let day = 1;
+  for (const path of itineraryInfo) {
+    const accordionItem = document.createElement("div");
+    accordionItem.className = "accordion-item mb-2 w-1/2 rounded-md";
+    accordionItem.innerHTML = `
         <div class="accordion-header cursor-pointer bg-gray-200 p-2 rounded flex justify-between">
         <p>
         Day ${day}: ${path.locationName}
@@ -120,32 +118,29 @@ axios
           <p>Information about ${path.locationName} here</p>
         </div>
       `;
-      paths.appendChild(accordionItem);
-      day++;
-    }
+    paths.appendChild(accordionItem);
+    day++;
+  }
 
-    detailsContainer?.appendChild(itineraryDetails);
-    detailsContainer?.appendChild(paths);
+  detailsContainer?.appendChild(itineraryDetails);
+  detailsContainer?.appendChild(paths);
 
-    // Initialize the accordion after adding it to the DOM
-    new Accordion("myAccordion");
-  })
-  .catch((error) => {
-    swal.fire({
-      title: `${error.response.data.error}`,
-      icon: "error",
-      showCancelButton: true,
-      timer: 1500,
-    });
+  // Initialize the accordion after adding it to the DOM
+  new Accordion("myAccordion");
+} catch (error) {
+  swal.fire({
+    title: `${error}`,
+    icon: "error",
+    showCancelButton: true,
+    timer: 1500,
   });
+}
 
-try {
-  const response = await axiosInstance.get(`/itineraries/${id}/reviews`);
-  const reviewItem = document.createElement("div");
-  reviewItem.style.display = "flex";
-  reviewItem.style.flexDirection = "column";
-  reviewItem.style.gap = "8px";
-  reviewItem.innerHTML = `
+const reviewItem = document.createElement("div");
+reviewItem.style.display = "flex";
+reviewItem.style.flexDirection = "column";
+reviewItem.style.gap = "8px";
+reviewItem.innerHTML = `
   <h1 class="font-bold text-xl -mt-5 ">Reviews</h1>
   <form method="post" id="reviewForm">
     <input type="text" placeholder="Give a review" class="p-3 rounded-md mb-3" id="reviewText" />
@@ -172,7 +167,10 @@ try {
     
   </form>
   `;
-  reviewItem.style.width = "65%";
+reviewItem.style.width = "65%";
+
+try {
+  const response = await axiosInstance.get(`/itineraries/${id}/reviews`);
   response.data.forEach((review: IReview) => {
     let ratings: string = "";
     for (let i = 0; i < 5; i++) {
@@ -202,7 +200,6 @@ try {
   
 </article>
 `;
-    detailsContainer?.appendChild(reviewItem);
   });
 } catch (error: any) {
   swal.fire({
@@ -212,6 +209,8 @@ try {
     timer: 1500,
   });
 }
+detailsContainer?.appendChild(reviewItem);
+
 let currentUser: string;
 // form section
 try {
@@ -223,6 +222,10 @@ try {
 } catch (error) {
   const reviewInput = document.getElementById("reviewText") as HTMLInputElement;
   const reviewRating = document.getElementById("rating") as HTMLSelectElement;
+  const shareUsername = document.getElementById(
+    "shareUsername",
+  ) as HTMLInputElement;
+  shareUsername.disabled = true;
   reviewInput.disabled = true;
   reviewRating.disabled = true;
 }
@@ -279,8 +282,7 @@ shareSearch.addEventListener("input", async (event) => {
         `;
         usersSearchResult.appendChild(userInfo);
 
-        userInfo.addEventListener("click", (event) => {
-          const clickedElement = event.target as HTMLElement;
+        userInfo.addEventListener("click", () => {
           const username = element.username;
           shareSearch.value = username;
           usersSearchResult.innerHTML = ""; // Clear the search results
@@ -324,7 +326,7 @@ shareForm.addEventListener("submit", async (event) => {
     };
 
     emailjs.send(serviceID, templateID, templateParams, userID).then(
-      (response) => {
+      () => {
         swal.fire({
           title: "Itinerary Shared Successfully",
           text: `An email has been sent to ${recipientUser} (${destinationEmail})`,
@@ -332,7 +334,7 @@ shareForm.addEventListener("submit", async (event) => {
           timer: 2000,
         });
       },
-      (error) => {
+      () => {
         swal.fire({
           title: "Error Sharing Itinerary",
           text: "There was a problem sending the email. Please try again later.",

@@ -24,7 +24,7 @@ export class ReviewModel extends BaseModel {
         "reviews.created_at"
       )
       .table("reviews")
-      .innerJoin("users", "users.id", "reviews.reviewed_by")
+      .leftJoin("users", "users.id", "reviews.reviewed_by")
       .where({ itineraryId })
       .orderBy("reviews.rating", "desc");
     return reviews;

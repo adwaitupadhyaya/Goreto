@@ -8,9 +8,6 @@ const exploreWrapper = document.getElementById(
 const profileHeaderElement = document.getElementById(
   "profileHeader",
 ) as HTMLDivElement;
-const profileDetailsElement = document.getElementById(
-  "profileDetails",
-) as HTMLDivElement;
 
 const updateFormData = {
   title: document.getElementById("trekTitle") as HTMLInputElement,
@@ -57,16 +54,14 @@ try {
             alt=""
           />
         </div>
-        <span
-          class="profile__header--username flex items-center text-xl font-bold"
-          >${userDetails.data.username}</span
-        >
-  `;
-  profileDetailsElement.innerHTML = `
-          <span class="p-1 font-sans text-lg">${userDetails.data.firstName} ${userDetails.data.lastName}</span>
-        <span class="text-md p-1 font-sans text-gray-500">${userDetails.data.email}</span>
-  `;
+        <div>
+          <p class="profile__header--username flex items-center text-xl font-bold">${userDetails.data.username}</p>
+          <p class="p-1 font-sans text-lg">${userDetails.data.firstName} ${userDetails.data.lastName}</p>
+          <p class="text-md p-1 font-sans text-gray-500">${userDetails.data.email}</p>
+        </div>
 
+              
+  `;
   const userItineraries = await axiosInstance.get("/itineraries/getByUserss");
   userItineraries.data.forEach((itinerary: IItinerary) => {
     const exploreCard = document.createElement("div");

@@ -101,13 +101,13 @@ export class ItineraryModel extends BaseModel {
       )
       .avg("reviews.rating as average_rating")
       .table("itineraries")
-      .join(
+      .leftJoin(
         "itinerary_locations",
         "itineraries.id",
         "itinerary_locations.itinerary_id"
       )
-      .join("locations", "locations.id", "itinerary_locations.location_id")
-      .join("photos", "photos.itinerary_id", "itineraries.id")
+      .leftJoin("locations", "locations.id", "itinerary_locations.location_id")
+      .leftJoin("photos", "photos.itinerary_id", "itineraries.id")
       .leftJoin("reviews", "reviews.itinerary_id", "itineraries.id")
       .where({ "itineraries.id": +id })
       .groupBy(
@@ -134,7 +134,7 @@ export class ItineraryModel extends BaseModel {
         "photos.photo_url"
       )
       .table("itineraries")
-      .innerJoin("photos", "itineraries.id", "photos.itinerary_id")
+      .leftJoin("photos", "itineraries.id", "photos.itinerary_id")
       .where({ createdBy: +userId });
 
     return data;
@@ -205,12 +205,12 @@ export class ItineraryModel extends BaseModel {
         " itinerary_locations.day"
       )
       .table("itineraries")
-      .innerJoin(
+      .leftJoin(
         "itinerary_locations",
         "itineraries.id",
         "itinerary_locations.itinerary_id"
       )
-      .innerJoin("locations", "locations.id", "itinerary_locations.location_id")
+      .leftJoin("locations", "locations.id", "itinerary_locations.location_id")
       .where({ "itineraries.id": +itineraryId });
 
     return updatedItinerary;

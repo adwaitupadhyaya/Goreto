@@ -81,19 +81,17 @@
         class="profile__header flex items-center gap-8"
         id="profileHeader"
       ></div>
-      <hr />
-      <div class="profile__details flex flex-col" id="profileDetails"></div>
-
       <button
         data-dialog-target="dialog-md"
-        class="h-1/3 w-[40px] rounded-md bg-gray-300 p-2 text-[#075755] hover:bg-gray-400"
+        class="h-1/3 w-[150px] rounded-md bg-[#075755] p-2 text-white transition-all hover:bg-[#07575590]"
       >
-        <i class="fa-solid fa-pencil"></i>
+        Update Profile &nbsp;<i class="fa-solid fa-pencil"></i>
       </button>
-      <hr />
 
+      <div class="profile__details flex flex-col" id="profileDetails"></div>
+      <hr />
       <div class="profile__itineraries">
-        <h3 class="text-xl">Itineraries made by you</h3>
+        <h3 class="text-xl font-bold">Itineraries made by you</h3>
 
         <div id="explore__wrapper" class="mt-5 flex overflow-auto"></div>
       </div>
@@ -164,6 +162,7 @@
             </h6>
             <div class="relative h-11 w-full min-w-[200px]">
               <input
+                disabled
                 id="username"
                 placeholder="username"
                 class="peer h-full w-full rounded-md border border-blue-gray-200 !border-t-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:!border-t-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"

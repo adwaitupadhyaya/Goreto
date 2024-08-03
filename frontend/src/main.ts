@@ -1,5 +1,3 @@
-import axios from "axios";
-// import axiosInstance from "./axios";
 import { IItinerary } from "./interface/itinerary";
 import axiosInstance from "./axios";
 import swal from "sweetalert2";
@@ -10,13 +8,14 @@ const exploreWrapper = document.getElementById(
 const filter = document.getElementById("filter-by") as HTMLSelectElement;
 
 const searchForm = document.getElementById("searchForm") as HTMLFormElement;
+try {
+  const response = await axiosInstance.get("/itineraries");
 
-axios.get("http://localhost:3000/itineraries").then((response) => {
   response.data.forEach((itinerary: IItinerary) => {
     const exploreCard = document.createElement("div");
     exploreCard.innerHTML = `        
-    <a href = "./src/pages/details/index.html?id=${itinerary.id}">
-
+    <a href = "http://localhost:5173/src/pages/details/index.html?id=${itinerary.id}">
+  
         <div
           class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"
         >
@@ -43,13 +42,20 @@ axios.get("http://localhost:3000/itineraries").then((response) => {
             </p>
           </div>
         </div>
-
+  
     </a>
     
-`;
+  `;
     exploreWrapper.appendChild(exploreCard);
   });
-});
+} catch (error: any) {
+  swal.fire({
+    title: `${error.response.data.error}`,
+    icon: "error",
+    showCancelButton: true,
+    timer: 1500,
+  });
+}
 
 searchForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -62,7 +68,7 @@ searchForm.addEventListener("submit", async (event) => {
     data.data.forEach((itinerary: IItinerary) => {
       const exploreCard = document.createElement("div");
       exploreCard.innerHTML = /*HTML*/ `        
-        <a href = "./src/pages/details/index.html?id=${itinerary.id}">
+        <a href = "http://localhost:5173/src/pages/details/index.html?id=${itinerary.id}">
         <div
           class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"
         >
@@ -115,7 +121,7 @@ filter.addEventListener("change", async (event) => {
       const exploreCard = document.createElement("div");
 
       exploreCard.innerHTML = /*HTML*/ `        
-        <a href = "./src/pages/details/index.html?id=${itinerary.id}">
+        <a href = "http://localhost:5173/src/pages/details/index.html?id=${itinerary.id}">
         <div
           class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"
         >

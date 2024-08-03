@@ -1,4 +1,3 @@
-import axios from "axios";
 import axiosInstance from "../../axios";
 import Toastify from "toastify-js";
 import { IItinerary } from "../../interface/itinerary";
@@ -21,19 +20,12 @@ const itinerariesContainer = document.getElementById(
 ) as HTMLDivElement;
 import swal from "sweetalert2";
 
-const accessToken = localStorage.getItem("accessToken");
-const config = {
-  headers: { Authorization: `Bearer ${accessToken}` },
-};
-
-axios
-  .get("http://localhost:3000/users/me", config)
-  .then((res) => {
-    userBreadcrumb.innerText = `Hello ${res.data.username}`;
-  })
-  .catch((err) => {
-    document.body.innerHTML = `${err.response.data.error}`;
-  });
+try {
+  const response = await axiosInstance.get("/users/me");
+  userBreadcrumb.innerText = `Hello ${response.data.username}`;
+} catch (error: any) {
+  document.body.innerHTML = `${error.response.data.error}`;
+}
 
 logoutBtn.addEventListener("click", () => {
   localStorage.clear();
