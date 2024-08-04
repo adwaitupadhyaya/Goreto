@@ -12,12 +12,24 @@ import { authenticate } from "../middlewares/auth";
 import { createItinerarySchema } from "../schema/itineraries";
 import { validateReqBody } from "../middlewares/validator";
 import { createReview, getReviews } from "../controllers/reviews";
+import { upload } from "../middlewares/multer";
+import { BadRequestError } from "../error/BadRequestError";
 
 const router = express();
 
 router.post(
   "/",
+  upload.fields([{ name: "photo_url", maxCount: 1 }]),
   authenticate,
+  (req, res, next) => {
+    const { body } = req;
+    try {
+      body.path = JSON.parse(body.path);
+      next();
+    } catch (e) {
+      return next(new BadRequestError("Invalid path format"));
+    }
+  },
   validateReqBody(createItinerarySchema),
   createItinerary
 );

@@ -20,13 +20,11 @@ export class ItineraryModel extends BaseModel {
       .table("itineraries")
       .returning("id");
 
-    const photoObj = { photo_url: itinerary.photo_url, itineraryId };
     await this.queryBuilder()
-      .insert({
-        photoObj,
-      })
+      .insert({ photo_url: itinerary.photo_url, itinerary_id: itineraryId.id })
       .table("photos");
     const locations = itinerary.path;
+
     for (const locationName of locations) {
       const [locationId] = await this.queryBuilder()
         .insert({ location_name: locationName })

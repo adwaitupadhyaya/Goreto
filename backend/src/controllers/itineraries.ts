@@ -21,7 +21,7 @@ export async function createItinerary(
       return;
     }
     const imagesPath: ItineraryImage = {
-      photo: files.photo[0].path,
+      photo: files.photo_url[0].path,
     };
 
     await itineraryServices.createItinerary(body, imagesPath, userId);

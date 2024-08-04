@@ -91,42 +91,33 @@ createForm.addEventListener("submit", async (e) => {
     path.push(location);
   }
 
-  const formData = {
-    title: target.trekTitle.value,
-    number_of_days: target.numberOfDays.value,
-    difficulty: target.difficulty.value,
-    description: target.description.value,
-    path: path,
-  };
+  const formData = new FormData();
+  formData.append("title", target.trekTitle.value);
+  formData.append("number_of_days", target.numberOfDays.value);
+  formData.append("difficulty", target.difficulty.value);
+  formData.append("description", target.description.value);
+  formData.append("path", JSON.stringify(path));
 
+  // Append the file
+  const photoInput = document.getElementById(
+    "photo_url",
+  ) as HTMLInputElement | null;
+  if (photoInput!.files && photoInput!.files[0]) {
+    formData.append("photo_url", photoInput!.files[0]);
+  }
   try {
-    const response = await axiosInstance.post(
-      "http://localhost:3000/itineraries",
-      formData,
-    );
-
+    const response = await axiosInstance.post("/itineraries", formData);
     setTimeout(() => {
       window.location.reload();
     }, 2000);
-
-    Toastify({
-      text: `${response.data.message}`,
-      duration: 3000,
-      destination: "https://github.com/apvarun/toastify-js",
-      newWindow: true,
-      gravity: "top", // `top` or `bottom`
-      position: "right", // `left`, `center` or `right`
-      stopOnFocus: true, // Prevents dismissing of toast on hover
-      style: {
-        background: "#6bc070",
-        color: "white",
-        padding: "10px",
-        zIndex: "99",
-        position: "absolute",
-        left: "10px",
-      },
-    }).showToast();
+    swal.fire({
+      title: `${response.data}`,
+      icon: "success",
+      showCancelButton: true,
+      timer: 1500,
+    });
   } catch (error: any) {
+    console.log(error);
     swal.fire({
       title: `${error.response.data.error}`,
       icon: "error",

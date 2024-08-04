@@ -38,7 +38,7 @@ try {
             <p
               class="block font-sans text-sm antialiased font-light leading-relaxed text-inherit mt-2 capitalize"
             >
-              <i class="fa-solid fa-star"></i> &nbsp; ${itinerary.averageRating} &nbsp;
+               <i class="fa-solid fa-star"></i> &nbsp; ${itinerary.averageRating ? itinerary.averageRating : "N/A"} &nbsp;
               <i class="fa-solid fa-circle-dot"></i>&nbsp; ${itinerary.difficulty} &nbsp;
               <i class="fa-solid fa-clock"></i>&nbsp; ${itinerary.numberOfDays} Days
             </p>
@@ -91,7 +91,7 @@ searchForm.addEventListener("submit", async (event) => {
             <p
               class="block font-sans text-sm antialiased font-light leading-relaxed text-inherit mt-2 capitalize"
             >
-              <i class="fa-solid fa-star"></i> &nbsp; ${itinerary.averageRating} &nbsp;
+              <i class="fa-solid fa-star"></i> &nbsp; ${itinerary.averageRating ? itinerary.averageRating : "N/A"} &nbsp;
               <i class="fa-solid fa-circle-dot"></i>&nbsp; ${itinerary.difficulty} &nbsp;
               <i class="fa-solid fa-clock"></i>&nbsp; ${itinerary.numberOfDays} Days
             </p>
@@ -144,7 +144,7 @@ filter.addEventListener("change", async (event) => {
             <p
               class="block font-sans text-sm antialiased font-light leading-relaxed text-inherit mt-2 capitalize"
             >
-              <i class="fa-solid fa-star"></i> &nbsp; ${itinerary.averageRating} &nbsp;
+              <i class="fa-solid fa-star"></i> &nbsp; ${itinerary.averageRating ? itinerary.averageRating : "N/A"} &nbsp;
               <i class="fa-solid fa-circle-dot"></i>&nbsp; ${itinerary.difficulty} &nbsp;
               <i class="fa-solid fa-clock"></i>&nbsp; ${itinerary.numberOfDays} Days
             </p>

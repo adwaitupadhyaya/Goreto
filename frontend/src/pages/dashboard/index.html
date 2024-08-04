@@ -116,7 +116,7 @@
         data-dialog="dialog-lg"
         class="gap-11rounded-xl relative mx-auto flex h-[90%] w-9/12 flex-col bg-white bg-clip-border text-gray-700 shadow-md"
       >
-        <div class="flex flex-col gap-4 p-6">
+        <div class="flex flex-col p-6">
           <h4
             class="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased"
           >
@@ -126,8 +126,17 @@
             action=""
             method="post"
             id="createForm"
-            class="flex flex-col gap-3"
+            class="relative flex flex-col gap-3"
           >
+            <!-- submit btn -->
+            <div class="absolute right-0 -mt-10 pt-0">
+              <input
+                type="submit"
+                value="Submit"
+                class="cursor-pointer rounded-md bg-[#075755] p-2 text-white"
+              />
+            </div>
+            <!-- submit btn -->
             <!-- title -->
             <h6
               class="-mb-2 block font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased"
@@ -202,6 +211,17 @@
             </div>
             <!-- difficulty -->
 
+            <!-- add a photo -->
+            <h6
+              class="-mb-2 block font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased"
+            >
+              Add a photo (optional)
+            </h6>
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input type="file" id="photo_url" name="photo" accept="image/*" />
+            </div>
+            <!-- photo -->
+
             <!-- description -->
             <h6
               class="-mb-2 block font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased"
@@ -263,16 +283,6 @@
               />
             </div>
             <!-- title -->
-
-            <!-- submit btn -->
-            <div class="p-6 pt-0">
-              <input
-                type="submit"
-                value="Submit"
-                class="w-full cursor-pointer rounded-md bg-[#075755] p-3 text-white"
-              />
-            </div>
-            <!-- submit btn -->
           </form>
         </div>
       </div>

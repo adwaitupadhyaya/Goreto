@@ -14,7 +14,7 @@ export async function createItinerary(
 ) {
   const image = await uploadOnCloudinary(imagesPath.photo!);
   const itineraryObj = { ...body, photo_url: image!.url };
-  await ItineraryModel.ItineraryModel.create(body, id);
+  await ItineraryModel.ItineraryModel.create(itineraryObj, id);
 }
 
 export async function getItineraries(query: GetItineraryQuery) {
