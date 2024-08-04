@@ -1,11 +1,19 @@
 import { NotFoundError } from "./../error/NotFoundError";
 import * as ItineraryModel from "../models/itineraries";
-import { GetItineraryQuery, IItinerary } from "../interfaces/itinerary";
+import {
+  GetItineraryQuery,
+  IItinerary,
+  ItineraryImage,
+} from "../interfaces/itinerary";
+import { uploadOnCloudinary } from "../utils/cloudinary";
 
 export async function createItinerary(
   body: Omit<IItinerary, "id" | "created_by">,
+  imagesPath: ItineraryImage,
   id: string
 ) {
+  const image = await uploadOnCloudinary(imagesPath.photo!);
+  const itineraryObj = { ...body, photo_url: image!.url };
   await ItineraryModel.ItineraryModel.create(body, id);
 }
 

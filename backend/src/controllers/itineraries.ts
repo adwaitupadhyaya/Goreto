@@ -1,18 +1,30 @@
+import { MulterRequest } from "./../interfaces/multer";
 import { NextFunction, Response } from "express";
 import { Request } from "../interfaces/auth";
 import * as itineraryServices from "../services/itineraries";
 import HttpStatusCodes from "http-status-codes";
 import { log } from "console";
-
+import { BadRequestError } from "../error/BadRequestError";
+import { ItineraryImage } from "../interfaces/itinerary";
 export async function createItinerary(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
+  const multerReq = req as MulterRequest;
+  const { files } = multerReq;
   const { body } = req;
   const userId = req.user!.id;
   try {
-    await itineraryServices.createItinerary(body, userId);
+    if (!files || Object.keys(files).length === 0) {
+      next(new BadRequestError("no files uploaded"));
+      return;
+    }
+    const imagesPath: ItineraryImage = {
+      photo: files.photo[0].path,
+    };
+
+    await itineraryServices.createItinerary(body, imagesPath, userId);
 
     return res.status(HttpStatusCodes.CREATED).json({
       message: "Created Succesfully",
