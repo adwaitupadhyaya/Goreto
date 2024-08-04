@@ -19,6 +19,7 @@ const itinerariesContainer = document.getElementById(
   "itineraries__container",
 ) as HTMLDivElement;
 import swal from "sweetalert2";
+import { config } from "../../config";
 
 try {
   const response = await axiosInstance.get("/users/me");
@@ -29,7 +30,7 @@ try {
 
 logoutBtn.addEventListener("click", () => {
   localStorage.clear();
-  window.location.href = "http://localhost:5173/";
+  window.location.href = `${config.API_URL}`;
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -145,7 +146,7 @@ try {
 
   response.data.forEach((itinerary: IItinerary) => {
     exploreCard.innerHTML += `        
-    <a href = "http://localhost:5173/src/pages/details/index.html?id=${itinerary.id}">
+    <a href = "${config.API_URL}/src/pages/details/index.html?id=${itinerary.id}">
 
         <div
           class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"

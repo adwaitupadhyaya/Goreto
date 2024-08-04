@@ -1,4 +1,5 @@
 import axiosInstance from "../../axios";
+import { config } from "../../config";
 import { IItinerary } from "../../interface/itinerary";
 import swal from "sweetalert2";
 
@@ -74,7 +75,7 @@ try {
             <div
               class="relative h-56 mx-4 -mt-6 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40"
             >
-                 <a href = "http://localhost:5173/src/pages/details/index.html?id=${itinerary.id}">
+                 <a href = "${config.API_URL}/src/pages/details/index.html?id=${itinerary.id}">
               <img
                 src="${itinerary.photoUrl}"
                 class="transition-transform duration-300 ease-in-out transform hover:scale-105"
@@ -95,6 +96,9 @@ try {
                 <button class="p-3 self-end" data-dialog-target="dialog-lg-${itinerary.id}" id="dialog-lg-${itinerary.id}">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
+                <button class="p-3 self-end" id="deleteBtn-${itinerary.id}">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
               </p>
             </div>
           </div>
@@ -105,12 +109,43 @@ try {
     const updateButton = document.getElementById(
       `dialog-lg-${itinerary.id}`,
     ) as HTMLButtonElement;
+    const deleteBtn = document.getElementById(
+      `deleteBtn-${itinerary.id}`,
+    ) as HTMLButtonElement;
     const updateModal = document.getElementById(
       `updateModal`,
     ) as HTMLDivElement;
     const closeModal = document.getElementById(
       "closeModal",
     ) as HTMLButtonElement;
+
+    deleteBtn.addEventListener("click", (event) => {
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            // delete URL here
+            await axiosInstance.delete(`/itineraries/${itinerary.id}`);
+            swal.fire({
+              title: "Deleted!",
+              text: "Your itinerary has been deleted.",
+              icon: "success",
+            });
+
+            setTimeout(() => {
+              window.location.reload();
+            }, 1500);
+          }
+        });
+    });
 
     closeModal.addEventListener("click", () => {
       updateModal.classList.remove("flex");
@@ -157,7 +192,7 @@ try {
   });
 } catch (error: any) {
   swal.fire({
-    title: `${error.response.data.error}`,
+    title: `${error}`,
     icon: "error",
     showCancelButton: true,
     timer: 1500,
@@ -169,7 +204,7 @@ try {
 const logoutBtn = document.getElementById("logout-btn") as HTMLButtonElement;
 logoutBtn.addEventListener("click", () => {
   localStorage.clear();
-  window.location.href = "http://localhost:5173/";
+  window.location.href = `${config.API_URL}`;
 });
 
 const updateForm = document.getElementById("update") as HTMLFormElement;

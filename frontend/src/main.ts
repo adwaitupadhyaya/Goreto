@@ -1,6 +1,8 @@
 import { IItinerary } from "./interface/itinerary";
 import axiosInstance from "./axios";
 import swal from "sweetalert2";
+import { config } from "./config";
+console.log(config);
 
 const exploreWrapper = document.getElementById(
   "explore__wrapper",
@@ -14,7 +16,7 @@ try {
   response.data.forEach((itinerary: IItinerary) => {
     const exploreCard = document.createElement("div");
     exploreCard.innerHTML = `        
-    <a href = "http://localhost:5173/src/pages/details/index.html?id=${itinerary.id}">
+    <a href = "${config.API_URL}/src/pages/details/index.html?id=${itinerary.id}">
   
         <div
           class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"
@@ -68,7 +70,7 @@ searchForm.addEventListener("submit", async (event) => {
     data.data.forEach((itinerary: IItinerary) => {
       const exploreCard = document.createElement("div");
       exploreCard.innerHTML = /*HTML*/ `        
-        <a href = "http://localhost:5173/src/pages/details/index.html?id=${itinerary.id}">
+        <a href = "${config.API_URL}/src/pages/details/index.html?id=${itinerary.id}">
         <div
           class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"
         >
@@ -121,7 +123,7 @@ filter.addEventListener("change", async (event) => {
       const exploreCard = document.createElement("div");
 
       exploreCard.innerHTML = /*HTML*/ `        
-        <a href = "http://localhost:5173/src/pages/details/index.html?id=${itinerary.id}">
+        <a href = "${config.API_URL}/src/pages/details/index.html?id=${itinerary.id}">
         <div
           class="relative flex flex-col mt-6 text-gray-700 bg-white bg-clip-border rounded-xl w-96"
         >

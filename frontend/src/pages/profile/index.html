@@ -332,6 +332,177 @@
     </div>
     <!-- itinerary modal -->
 
+    <div
+      data-dialog-backdrop="dialog-lg"
+      data-dialog-backdrop-close="true"
+      class="pointer-events-none fixed inset-0 z-[999] grid h-full w-screen place-items-center bg-black bg-opacity-60 opacity-0 backdrop-blur-sm transition-opacity duration-300"
+    >
+      <div
+        data-dialog="dialog-lg"
+        class="gap-11rounded-xl relative mx-auto flex h-[90%] w-9/12 flex-col bg-white bg-clip-border text-gray-700 shadow-md"
+      >
+        <div class="flex flex-col gap-4 p-6">
+          <h4
+            class="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased"
+          >
+            Create Your Own Itinerary
+          </h4>
+          <form
+            action=""
+            method="post"
+            id="createForm"
+            class="flex flex-col gap-3"
+          >
+            <!-- title -->
+            <h6
+              class="-mb-2 block font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased"
+            >
+              Title of your trek
+            </h6>
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                required
+                id="trekTitle"
+                type="text"
+                name="title"
+                class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                placeholder=" "
+              />
+              <label
+                class="before:content[' '] after:content[' '] pointer-events-none absolute -top-1.5 left-0 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mr-1 before:mt-[6.5px] before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-l before:border-t before:border-blue-gray-200 before:transition-all after:pointer-events-none after:ml-1 after:mt-[6.5px] after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-r after:border-t after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-l-2 peer-focus:before:border-t-2 peer-focus:before:!border-gray-900 peer-focus:after:border-r-2 peer-focus:after:border-t-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"
+              >
+                Title
+              </label>
+            </div>
+            <!-- title -->
+
+            <!-- number of days -->
+            <h6
+              class="-mb-2 block font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased"
+            >
+              Number of days
+            </h6>
+            <div class="relative h-11 w-full min-w-[200px]">
+              <input
+                required
+                id="numberOfDays"
+                max="20"
+                min="1"
+                type="number"
+                name="title"
+                class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                placeholder=" "
+              />
+              <label
+                class="before:content[' '] after:content[' '] pointer-events-none absolute -top-1.5 left-0 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mr-1 before:mt-[6.5px] before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-l before:border-t before:border-blue-gray-200 before:transition-all after:pointer-events-none after:ml-1 after:mt-[6.5px] after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-r after:border-t after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-l-2 peer-focus:before:border-t-2 peer-focus:before:!border-gray-900 peer-focus:after:border-r-2 peer-focus:after:border-t-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"
+              >
+                Number of days
+              </label>
+            </div>
+            <!-- number of days -->
+
+            <!-- Difficulty -->
+            <h6
+              class="-mb-2 block font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased"
+            >
+              Difficulty
+            </h6>
+            <div class="relative h-11 w-full min-w-[200px]">
+              <select
+                required
+                id="difficulty"
+                name="cars"
+                class="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+              >
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+
+              <label
+                class="before:content[' '] after:content[' '] pointer-events-none absolute -top-1.5 left-0 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mr-1 before:mt-[6.5px] before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-l before:border-t before:border-blue-gray-200 before:transition-all after:pointer-events-none after:ml-1 after:mt-[6.5px] after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-r after:border-t after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-l-2 peer-focus:before:border-t-2 peer-focus:before:!border-gray-900 peer-focus:after:border-r-2 peer-focus:after:border-t-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"
+              >
+                difficulty
+              </label>
+            </div>
+            <!-- difficulty -->
+
+            <!-- description -->
+            <h6
+              class="-mb-2 block font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased"
+            >
+              Description
+            </h6>
+            <div class="relative h-11 w-full min-w-[200px]">
+              <textarea
+                class="peer mb-2 w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                name="description"
+                id="description"
+              ></textarea>
+
+              <label
+                class="before:content[' '] after:content[' '] pointer-events-none absolute -top-1.5 left-0 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mr-1 before:mt-[6.5px] before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-l before:border-t before:border-blue-gray-200 before:transition-all after:pointer-events-none after:ml-1 after:mt-[6.5px] after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-r after:border-t after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-l-2 peer-focus:before:border-t-2 peer-focus:before:!border-gray-900 peer-focus:after:border-r-2 peer-focus:after:border-t-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"
+              >
+                Description
+              </label>
+            </div>
+            <!-- description -->
+
+            <!-- title -->
+
+            <h6
+              class="-mb-2 mt-5 block font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased"
+            >
+              Path
+            </h6>
+
+            <div class="buttons flex gap-5">
+              <button
+                type="button"
+                id="addLocation"
+                class="w-[3%] rounded-lg bg-[#075755] text-white"
+              >
+                <i class="fa-solid fa-plus"></i>
+              </button>
+
+              <button
+                type="button"
+                id="removeLocation"
+                class="w-[3%] rounded-lg bg-[#075755] text-white"
+              >
+                <i class="fa-solid fa-minus"></i>
+              </button>
+            </div>
+
+            <div
+              class="relative flex h-11 w-full min-w-[200px] gap-4 overflow-y-hidden overflow-x-scroll"
+              id="locations"
+            >
+              <input
+                required
+                id="location1"
+                type="text"
+                name="title"
+                class="peer h-full w-1/5 rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+                placeholder="Location Name"
+              />
+            </div>
+            <!-- title -->
+
+            <!-- submit btn -->
+            <div class="p-6 pt-0">
+              <input
+                type="submit"
+                value="Submit"
+                class="w-full cursor-pointer rounded-md bg-[#075755] p-3 text-white"
+              />
+            </div>
+            <!-- submit btn -->
+          </form>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="./profile.ts"></script>
     <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/dialog.js"></script>

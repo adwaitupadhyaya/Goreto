@@ -221,6 +221,12 @@ export class ItineraryModel extends BaseModel {
       .delete()
       .table("itinerary_locations")
       .where({ itineraryId });
+    await this.queryBuilder().delete().table("reviews").where({
+      "reviews.itinerary_id": itineraryId,
+    });
+    await this.queryBuilder().delete().table("photos").where({
+      "photos.itinerary_id": itineraryId,
+    });
     await this.queryBuilder().delete().table("itineraries").where({
       "itineraries.id": itineraryId,
     });

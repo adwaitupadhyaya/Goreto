@@ -4,6 +4,7 @@ import axiosInstance from "../../axios";
 import { IForm } from "../../interface/form";
 import { signUpSchema } from "../../schema/user";
 import { validateForm } from "../../utils/validator";
+import { config } from "../../config";
 
 const loginForm = document.getElementById("login") as HTMLFormElement;
 const signupForm = document.getElementById("signup") as HTMLFormElement;
@@ -27,8 +28,7 @@ loginForm.addEventListener("submit", async (event) => {
     const response = await axiosInstance.post("/auth/login", loginData);
     localStorage.setItem("accessToken", `${response.data.tokens.accessToken}`);
 
-    window.location.href =
-      "http://localhost:5173/src/pages/dashboard/index.html";
+    window.location.href = `${config.API_URL}/src/pages/dashboard/index.html`;
   } catch (error: any) {
     displayErrors(error.response.data.message, loginErrorArea);
   }
@@ -67,7 +67,7 @@ async function submitForm(formData: IForm) {
   try {
     await axiosInstance.post("/auth/signup", formData);
     setTimeout(() => {
-      window.location.href = "http://localhost:5173/src/pages/login/login.html"; // Replace with your desired redirect URL
+      window.location.href = `${config.API_URL}/src/pages/login/login.html`; // Replace with your desired redirect URL
     }, 2000);
     swal.fire({
       title: `Signed up successfully`,
